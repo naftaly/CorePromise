@@ -19,23 +19,29 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Promise : NSObject
+/* error domain when errors come from CorePromise */
+FOUNDATION_EXTERN NSString* const PromiseErrorDomain;
 
-/*
- 
- <other promise>.then( ^ id (id obj) {
-    return <promise> or <error> or <anything> or nil;
- });
- 
- */
-typedef Promise*(^PromiseHandler)( Promise* (^)(id obj) );
+/* NSError.userInfo key if an exception is raised in a handler */
+FOUNDATION_EXTERN NSString* const PromiseErrorExceptionKey;
 
+typedef NS_ENUM(NSUInteger,PromiseErrorCode) {
+    PromiseErrorCodeNone,
+    PromiseErrorCodeException
+} NS_ENUM_AVAILABLE(10_11, 9_0);
+
+NS_CLASS_AVAILABLE(10_11,9_0) @interface Promise<__covariant ValueType> : NSObject
+
+typedef Promise*(^PromiseHandler)( id (^)(ValueType obj) );
+typedef Promise*(^PromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
+
+@property (nonatomic,copy,readonly) PromiseOnHandler thenOn;
 @property (nonatomic,copy,readonly) PromiseHandler then;
 @property (nonatomic,copy,readonly) PromiseHandler error;
 @property (nonatomic,copy,readonly) PromiseHandler finally;
 
 /* a promise is resolved when value != nil */
-@property (nonatomic,readonly) id value;
+@property (nonatomic,readonly) id/* ValueType */ value;
 
 /* creates a promise in a pending state. call markStateWithValue: when you are ready */
 + (instancetype)pendingPromise;

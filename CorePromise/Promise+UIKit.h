@@ -17,14 +17,18 @@
  *
  */
 
+#import <CorePromise/Promise.h>
 #import <UIKit/UIKit.h>
 
-@class Promise;
 @interface UIView (Promise)
 
-+ (Promise*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations;
-+ (Promise*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations;
+/* ValueType is a BOOL ( finished ) */
++ (Promise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations;
 
-- (Promise*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue;
+/* ValueType is a BOOL ( finished ) */
++ (Promise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations;
+
+/* ValueType is a UIView - the view that was animated */
+- (Promise<UIView*>*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue;
 
 @end

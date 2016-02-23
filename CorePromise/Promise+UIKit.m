@@ -54,7 +54,7 @@
     [CATransaction begin];
     
     [CATransaction setCompletionBlock:^{
-        [p markStateWithValue:nil];
+        [p markStateWithValue:self];
     }];
     
     [self.layer addAnimation:spring forKey:@"promise_spring"];

@@ -10,6 +10,9 @@
 
 #define LOG_DEBUG   0
 
+NSString* const PromiseErrorDomain = @"com.xrite.core.promise.error.domain";
+NSString* const PromiseErrorExceptionKey = @"PromiseErrorExceptionKey";
+
 typedef NS_ENUM(NSUInteger,PromiseState) {
     PromiseStatePending,
     PromiseStateFulfilled,
@@ -37,6 +40,7 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
 @property (nonatomic,assign) NSInteger identifier;
 @property (nonatomic,strong) id value;
 
+@property (nonatomic,copy) PromiseOnHandler thenOn;
 @property (nonatomic,copy) PromiseHandler then;
 @property (nonatomic,copy) PromiseHandler error;
 @property (nonatomic,copy) PromiseHandler finally;
@@ -46,10 +50,11 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
 @property (nonatomic,strong) Promise* nextPromise;
 @property (nonatomic,readonly) Promise* lastPromiseInChain;
 
-- (Promise*)_makeThen:(Promise* (^)(id obj))block;
+- (Promise*)_makeThen:(Promise* (^)(id obj))block on:(NSOperationQueue*)queue;
 - (Promise*)_makeError:(Promise* (^)(id obj))block;
 - (Promise*)_makeFinally:(Promise* (^)(id obj))block;
 
+@property (nonatomic,strong) NSOperationQueue* _callbackQueue;
 @property (nonatomic,copy) Promise* (^_callback)(id obj);
 
 @end
@@ -71,9 +76,14 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     
     __weak typeof(self)weakMe = self;
     
+    self.thenOn = ^ Promise* (NSOperationQueue* queue, id obj) {
+        typeof(self)me = weakMe;
+        return [me _makeThen:obj on:queue];
+    };
+    
     self.then = ^ Promise* (id obj) {
         typeof(self)me = weakMe;
-        return [me _makeThen:obj];
+        return [me _makeThen:obj on:nil];
     };
     
     self.error = ^ Promise* (id obj) {
@@ -130,6 +140,26 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     return p;
 }
 
+- (id)_callCallbackWithValue:(id)value
+{
+    id res = nil;
+    
+    @try
+    {
+        res = self._callback(value);
+    }
+    @catch (NSException *exception)
+    {
+        res = [NSError errorWithDomain:PromiseErrorDomain code:PromiseErrorCodeException userInfo:@{ NSLocalizedDescriptionKey : [exception description], PromiseErrorExceptionKey : exception }];
+    }
+    @catch (id exceptionValue)
+    {
+        res = [NSError errorWithDomain:PromiseErrorDomain code:PromiseErrorCodeException userInfo:@{ NSLocalizedDescriptionKey : [exceptionValue description] }];
+    }
+
+    return res;
+}
+
 - (void)_bubbleValueToNextPromise
 {
     if( self.state == PromiseStateFulfilled )
@@ -138,30 +168,43 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
         Promise* p = [self _findNextNonErrorAndNonFinallyPromise];
         if ( p && p._callback )
         {
-            id res = p._callback(self.value);
+            [p._callbackQueue addOperationWithBlock:^{
+                
+                id res = [p _callCallbackWithValue:self.value];
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    // insert the new promise between our p and its next promise
+                    if ( [res isKindOfClass:[Promise class]] )
+                    {
+                        Promise* nextPromiseResult = res;
+                        Promise* nextPromiseResultChainEnd = nextPromiseResult.lastPromiseInChain;
+                        Promise* pNextPromise = p.nextPromise;
+                        if ( pNextPromise )
+                        {
+                            p.nextPromise = nextPromiseResult;
+                            nextPromiseResult.parent = p.nextPromise;
+                            nextPromiseResultChainEnd.nextPromise = pNextPromise;
+                        }
+                    }
+                    
+                    [p markStateWithValue:res];
+                    
+                }];
+
+            }];
             
-            // insert the new promise between our p and its next promise
-            if ( [res isKindOfClass:[Promise class]] )
-            {
-                Promise* nextPromiseResult = res;
-                Promise* nextPromiseResultChainEnd = nextPromiseResult.lastPromiseInChain;
-                Promise* pNextPromise = p.nextPromise;
-                if ( pNextPromise )
-                {
-                    p.nextPromise = nextPromiseResult;
-                    nextPromiseResult.parent = p.nextPromise;
-                    nextPromiseResultChainEnd.nextPromise = pNextPromise;
-                }
-            }
-            
-            [p markStateWithValue:res];
         }
         else if ( !p )
         {
             // nothing left, it's time for finally
             p = [self _findFinallyPromise];
             if ( p && p._callback )
-                p._callback(self.value);
+            {
+                [p._callbackQueue addOperationWithBlock:^{
+                    [p _callCallbackWithValue:self.value];
+                }];
+            }
         }
     }
     else if ( self.state == PromiseStateRejected )
@@ -171,8 +214,15 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
         
         if ( nextErrorPromise && nextErrorPromise._callback )
         {
-            id res = nextErrorPromise._callback(self.value);
-            [nextErrorPromise markStateWithValue:res];
+            [nextErrorPromise._callbackQueue addOperationWithBlock:^{
+                
+                id res = [nextErrorPromise _callCallbackWithValue:self.value];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [nextErrorPromise markStateWithValue:res];
+                }];
+                
+            }];
+            
         }
         else if ( nextThenPromise )
         {
@@ -218,6 +268,7 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     Promise* p = [FinallyPromise pendingPromise];
     p.parent = self;
     p._callback = block;
+    p._callbackQueue = [NSOperationQueue mainQueue];
     
     if ( self.nextPromise )
         self.nextPromise.parent = nil;
@@ -227,7 +278,7 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     return p;
 }
 
-- (Promise*)_makeThen:(Promise* (^)(id obj))block
+- (Promise*)_makeThen:(Promise* (^)(id obj))block on:(NSOperationQueue*)queue
 {
 #if LOG_DEBUG
     NSLog( @"[Promise _then:] %ld", self.identifier );
@@ -236,6 +287,7 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     Promise* p = [ThenPromise pendingPromise];
     p.parent = self;
     p._callback = block;
+    p._callbackQueue = queue ? queue : [NSOperationQueue mainQueue];
     
     if ( self.nextPromise )
         self.nextPromise.parent = nil;
@@ -254,6 +306,7 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     Promise* p = [ErrorPromise pendingPromise];
     p.parent = self;
     p._callback = block;
+    p._callbackQueue = [NSOperationQueue mainQueue];
     
     if ( self.nextPromise )
         self.nextPromise.parent = nil;

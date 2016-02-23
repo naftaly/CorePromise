@@ -17,21 +17,35 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+#import <CorePromise/Promise.h>
 
-@class Promise;
 @interface NSURLSession (Promise)
 
-- (Promise*)promiseWithURL:(NSURL*)URL;
-- (Promise*)promiseWithURLRequest:(NSURLRequest*)request;
+- (Promise<NSData*>*)promiseWithURL:(NSURL*)URL;
+- (Promise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
 
-+ (Promise*)promiseWithURL:(NSURL*)URL;
-+ (Promise*)promiseWithURLRequest:(NSURLRequest*)request;
++ (Promise<NSData*>*)promiseWithURL:(NSURL*)URL;
++ (Promise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
 
 @end
 
 @interface NSTimer (Promise)
 
 + (Promise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti;
+
+@end
+
+@interface NSFileHandle (Promise)
+
+- (Promise<NSData*>*)promiseRead;
+- (Promise<NSData*>*)promiseReadToEndOfFile;
+- (Promise<NSFileHandle*>*)promiseWaitForData;
+
+@end
+
+@interface NSNotificationCenter (Promise)
+
+- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName;
+- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object;
 
 @end
