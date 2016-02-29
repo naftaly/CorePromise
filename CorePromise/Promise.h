@@ -46,6 +46,9 @@ typedef Promise*(^PromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
 /* creates a promise in a pending state. call markStateWithValue: when you are ready */
 + (instancetype)pendingPromise;
 
+/* creates a promise in a rejected state */
++ (instancetype)rejectedPromiseWithError:(NSError*)error;
+
 /* creates a fulfilled promised with a nil value */
 + (instancetype)promise;
 

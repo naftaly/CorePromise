@@ -249,6 +249,15 @@ typedef NS_ENUM(NSUInteger,PromiseState) {
     return p;
 }
 
++ (instancetype)rejectedPromiseWithError:(NSError*)error
+{
+    Promise* p = [self pendingPromise];
+    dispatch_async( dispatch_get_main_queue(), ^{
+        [p markStateWithValue:error ? error : [NSError errorWithDomain:PromiseErrorDomain code:0 userInfo:nil]];
+    });
+    return p;
+}
+
 + (instancetype)pendingPromise
 {
     return [[self alloc] init];
