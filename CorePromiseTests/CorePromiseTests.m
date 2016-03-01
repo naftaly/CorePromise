@@ -23,6 +23,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <CorePromise/CorePromise.h>
 
 @interface CorePromiseTests : XCTestCase
 
@@ -30,25 +31,180 @@
 
 @implementation CorePromiseTests
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)tearDown
+{
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testFulfilledPromise
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    [CPPromise promise].then( ^ id (id obj) {
+       
+        XCTAssertNil(obj);
+        [expectation fulfill];
+        return nil;
+    });
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
+    }];
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+- (void)testFulfilledPromiseWithValue
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    [CPPromise promiseWithValue:@(1)].then( ^ id (NSNumber* obj) {
+        
+        XCTAssertNotNil(obj);
+        XCTAssertEqual( obj.integerValue, 1);
+        [expectation fulfill];
+        return nil;
+    });
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
+    }];
+}
+
+- (void)testRejectedPromise
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    [CPPromise promiseWithValue:[NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil]].error( ^ id (NSError* error) {
+        
+        XCTAssertNotNil(error);
+        XCTAssertEqual( error.code, 1 );
+        [expectation fulfill];
+        return nil;
+    });
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
+    }];
+}
+
+- (void)testChainedPromises
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    [CPPromise promise].then( ^ id (id obj) {
+        
+        XCTAssertNil(obj);
+        return @"promised string";
+        
+    }).then( ^ id (NSString* s) {
+       
+        XCTAssertNotNil(s);
+        XCTAssertEqualObjects(s, @"promised string");
+        
+        return [NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil];
+        
+    }).error( ^id(NSError* error) {
+       
+        XCTAssertNotNil(error);
+        XCTAssertEqual( error.code, 1 );
+
+        return @(10);
+        
+    }).then( ^ id (NSNumber* num) {
+        
+        XCTAssertNotNil(num);
+        XCTAssertEqualObjects(num, @(10));
+        
+        return @"bypass error handler";
+        
+    }).error( ^id(NSError* error) {
+        
+        XCTAssertTrue(YES);
+
+        return nil;
+        
+    }).then( ^ id (NSString* bypass) {
+        
+        XCTAssertNotNil(bypass);
+        XCTAssertEqualObjects(bypass, @"bypass error handler");
+        
+        [expectation fulfill];
+        
+        return nil;
+        
+        
+    });
+
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
+    }];
+}
+
+- (void)testChainedPromisesWithFinally
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    [CPPromise promise].then( ^ id (id obj) {
+        
+        XCTAssertNil(obj);
+        return @"promised string";
+        
+    }).then( ^ id (NSString* s) {
+        
+        XCTAssertNotNil(s);
+        XCTAssertEqualObjects(s, @"promised string");
+        
+        return [NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil];
+        
+    }).error( ^id(NSError* error) {
+        
+        XCTAssertNotNil(error);
+        XCTAssertEqual( error.code, 1 );
+        
+        return @(10);
+        
+    }).then( ^ id (NSNumber* num) {
+        
+        XCTAssertNotNil(num);
+        XCTAssertEqualObjects(num, @(10));
+        
+        return @"bypass error handler";
+        
+    }).error( ^id(NSError* error) {
+        
+        XCTAssertTrue(YES);
+        
+        return nil;
+        
+    }).then( ^ id (NSString* bypass) {
+        
+        XCTAssertNotNil(bypass);
+        XCTAssertEqualObjects(bypass, @"bypass error handler");
+
+        return @"finally";
+        
+        
+    }).finally( ^id(id obj) {
+        
+        XCTAssertNotNil(obj);
+        XCTAssertEqualObjects(obj, @"finally");
+        
+        [expectation fulfill];
+        return nil;
+        
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
     }];
 }
 

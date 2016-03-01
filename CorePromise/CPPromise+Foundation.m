@@ -22,24 +22,24 @@
  * SOFTWARE.
  */
 
-#import "Promise+Foundation.h"
-#import "Promise.h"
+#import "CPPromise+Foundation.h"
+#import "CPPromise.h"
 
-@implementation NSURLSession (Promise)
+@implementation NSURLSession (CPPromise)
 
-+ (Promise*)promiseWithURL:(NSURL*)URL
++ (CPPromise*)promiseWithURL:(NSURL*)URL
 {
     return [[NSURLSession sharedSession] promiseWithURL:URL];
 }
 
-+ (Promise*)promiseWithURLRequest:(NSURLRequest*)request
++ (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
 {
     return [[NSURLSession sharedSession] promiseWithURLRequest:request];
 }
 
-- (Promise*)promiseWithURL:(NSURL*)URL
+- (CPPromise*)promiseWithURL:(NSURL*)URL
 {
-    Promise* p = [Promise pendingPromise];
+    CPPromise* p = [CPPromise pendingPromise];
     
     [[self dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -50,9 +50,9 @@
     return p;
 }
 
-- (Promise*)promiseWithURLRequest:(NSURLRequest*)request
+- (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
 {
-    Promise* p = [Promise pendingPromise];
+    CPPromise* p = [CPPromise pendingPromise];
     
     [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -65,26 +65,26 @@
 
 @end
 
-@implementation NSTimer (Promise)
+@implementation NSTimer (CPPromise)
 
-+ (Promise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti
++ (CPPromise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti
 {
-    Promise* p = [Promise pendingPromise];
+    CPPromise* p = [CPPromise pendingPromise];
     [NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(_promise_timer_fired:) userInfo:p repeats:NO];
     return p;
 }
 
 + (void)_promise_timer_fired:(NSTimer*)timer
 {
-    Promise* p = timer.userInfo;
+    CPPromise* p = timer.userInfo;
     [p markStateWithValue:nil];
 }
 
 @end
 
-@implementation NSFileHandle (Promise)
+@implementation NSFileHandle (CPPromise)
 
-- (Promise*)promiseRead
+- (CPPromise*)promiseRead
 {
     [self readInBackgroundAndNotify];
     return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleReadCompletionNotification object:self].then( ^id(NSNotification* note) {
@@ -92,7 +92,7 @@
     });
 }
 
-- (Promise*)promiseReadToEndOfFile
+- (CPPromise*)promiseReadToEndOfFile
 {
     [self readToEndOfFileInBackgroundAndNotify];
     return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleReadToEndOfFileCompletionNotification object:self].then( ^id(NSNotification* note) {
@@ -100,7 +100,7 @@
     });
 }
 
-- (Promise*)promiseWaitForData
+- (CPPromise*)promiseWaitForData
 {
     [self waitForDataInBackgroundAndNotify];
     return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleDataAvailableNotification object:self].then( ^id(NSNotification* note) {
@@ -110,16 +110,16 @@
 
 @end
 
-@implementation NSNotificationCenter (Promise)
+@implementation NSNotificationCenter (CPPromise)
 
-- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName
+- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName
 {
     return [self promiseObserveOnce:notificationName object:nil];
 }
 
-- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object
+- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object
 {
-    Promise* p = [Promise pendingPromise];
+    CPPromise* p = [CPPromise pendingPromise];
     
     __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:notificationName object:object queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         [[NSNotificationCenter defaultCenter] removeObserver:observer];

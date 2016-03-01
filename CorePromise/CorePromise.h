@@ -22,6 +22,6 @@
  * SOFTWARE.
  */
 
-#import <CorePromise/Promise.h>
-#import <CorePromise/Promise+Foundation.h>
-#import <CorePromise/Promise+UIKit.h>
+#import <CorePromise/CPPromise.h>
+#import <CorePromise/CPPromise+Foundation.h>
+#import <CorePromise/CPPromise+UIKit.h>

@@ -22,18 +22,18 @@
  * SOFTWARE.
  */
 
-#import <CorePromise/Promise.h>
+#import <CorePromise/CPPromise.h>
 #import <UIKit/UIKit.h>
 
-@interface UIView (Promise)
+@interface UIView (CPPromise)
 
 /* ValueType is a BOOL ( finished ) */
-+ (Promise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations;
++ (CPPromise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations;
 
 /* ValueType is a BOOL ( finished ) */
-+ (Promise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations;
++ (CPPromise<NSNumber*>*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations;
 
 /* ValueType is a UIView - the view that was animated */
-- (Promise<UIView*>*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue;
+- (CPPromise<UIView*>*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue;
 
 @end

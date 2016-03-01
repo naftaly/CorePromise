@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-#import "Promise+UIKit.h"
-#import "Promise.h"
+#import "CPPromise+UIKit.h"
+#import "CPPromise.h"
 
-@interface UIViewAnimationPromise : Promise
+@interface UIViewAnimationPromise : CPPromise
 @end
 
 @implementation UIViewAnimationPromise
@@ -33,25 +33,25 @@
 
 @implementation UIView (Promise)
 
-+ (Promise*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations
++ (CPPromise*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations
 {
-    Promise* p = [UIViewAnimationPromise pendingPromise];
+    CPPromise* p = [UIViewAnimationPromise pendingPromise];
     [self animateWithDuration:duration delay:delay options:options animations:animations completion:^(BOOL finished) {
         [p markStateWithValue:@(finished)];
     }];
     return p;
 }
 
-+ (Promise*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations
++ (CPPromise*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations
 {
-    Promise* p = [UIViewAnimationPromise pendingPromise];
+    CPPromise* p = [UIViewAnimationPromise pendingPromise];
     [self animateWithDuration:duration animations:animations completion:^(BOOL finished) {
         [p markStateWithValue:@(finished)];
     }];
     return p;
 }
 
-- (Promise*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue
+- (CPPromise*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue
 {
     CASpringAnimation* spring = [CASpringAnimation animationWithKeyPath:keyPath];
     spring.mass = mass;

@@ -22,35 +22,35 @@
  * SOFTWARE.
  */
 
-#import <CorePromise/Promise.h>
+#import <CorePromise/CPPromise.h>
 
-@interface NSURLSession (Promise)
+@interface NSURLSession (CPPromise)
 
-- (Promise<NSData*>*)promiseWithURL:(NSURL*)URL;
-- (Promise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
+- (CPPromise<NSData*>*)promiseWithURL:(NSURL*)URL;
+- (CPPromise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
 
-+ (Promise<NSData*>*)promiseWithURL:(NSURL*)URL;
-+ (Promise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
-
-@end
-
-@interface NSTimer (Promise)
-
-+ (Promise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti;
++ (CPPromise<NSData*>*)promiseWithURL:(NSURL*)URL;
++ (CPPromise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
 
 @end
 
-@interface NSFileHandle (Promise)
+@interface NSTimer (CPPromise)
 
-- (Promise<NSData*>*)promiseRead;
-- (Promise<NSData*>*)promiseReadToEndOfFile;
-- (Promise<NSFileHandle*>*)promiseWaitForData;
++ (CPPromise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti;
 
 @end
 
-@interface NSNotificationCenter (Promise)
+@interface NSFileHandle (CPPromise)
 
-- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName;
-- (Promise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object;
+- (CPPromise<NSData*>*)promiseRead;
+- (CPPromise<NSData*>*)promiseReadToEndOfFile;
+- (CPPromise<NSFileHandle*>*)promiseWaitForData;
+
+@end
+
+@interface NSNotificationCenter (CPPromise)
+
+- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName;
+- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object;
 
 @end

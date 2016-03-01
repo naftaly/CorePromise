@@ -25,34 +25,31 @@
 #import <Foundation/Foundation.h>
 
 /* error domain when errors come from CorePromise */
-FOUNDATION_EXTERN NSString* const PromiseErrorDomain;
+FOUNDATION_EXTERN NSString* const CorePromiseErrorDomain;
 
 /* NSError.userInfo key if an exception is raised in a handler */
-FOUNDATION_EXTERN NSString* const PromiseErrorExceptionKey;
+FOUNDATION_EXTERN NSString* const CorePromiseErrorExceptionKey;
 
-typedef NS_ENUM(NSUInteger,PromiseErrorCode) {
-    PromiseErrorCodeNone,
-    PromiseErrorCodeException
+typedef NS_ENUM(NSUInteger,CorePromiseErrorCode) {
+    CorePromiseErrorCodeNone,
+    CorePromiseErrorCodeException
 } NS_ENUM_AVAILABLE(10_11, 9_0);
 
-NS_CLASS_AVAILABLE(10_11,9_0) @interface Promise<__covariant ValueType> : NSObject
+NS_CLASS_AVAILABLE(10_11,9_0) @interface CPPromise<__covariant ValueType> : NSObject
 
-typedef Promise*(^PromiseHandler)( id (^)(ValueType obj) );
-typedef Promise*(^PromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
+typedef CPPromise*(^CorePromiseHandler)( id (^)(ValueType obj) );
+typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
 
-@property (nonatomic,copy,readonly) PromiseOnHandler thenOn;
-@property (nonatomic,copy,readonly) PromiseHandler then;
-@property (nonatomic,copy,readonly) PromiseHandler error;
-@property (nonatomic,copy,readonly) PromiseHandler finally;
+@property (nonatomic,copy,readonly) CorePromiseOnHandler thenOn;
+@property (nonatomic,copy,readonly) CorePromiseHandler then;
+@property (nonatomic,copy,readonly) CorePromiseHandler error;
+@property (nonatomic,copy,readonly) CorePromiseHandler finally;
 
 /* a promise is resolved when value != nil */
 @property (nonatomic,readonly) id/* ValueType */ value;
 
 /* creates a promise in a pending state. call markStateWithValue: when you are ready */
 + (instancetype)pendingPromise;
-
-/* creates a promise in a rejected state */
-+ (instancetype)rejectedPromiseWithError:(NSError*)error;
 
 /* creates a fulfilled promised with a nil value */
 + (instancetype)promise;
@@ -67,10 +64,10 @@ typedef Promise*(^PromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
 @property (nonatomic,copy) NSString* name;
 
 /* the root promise in this chain */
-@property (nonatomic,readonly) Promise* root;
+@property (nonatomic,readonly) CPPromise* root;
 
 /* the parent promise */
-@property (nonatomic,weak,readonly) Promise* parent;
+@property (nonatomic,weak,readonly) CPPromise* parent;
 
 @end
 
