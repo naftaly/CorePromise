@@ -22,6 +22,11 @@
  * SOFTWARE.
  */
 
+#import <Foundation/Foundation.h>
+
 #import <CorePromise/CPPromise.h>
 #import <CorePromise/CPPromise+Foundation.h>
+
+#if TARGET_OS_IOS
 #import <CorePromise/CPPromise+UIKit.h>
+#endif

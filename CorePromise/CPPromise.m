@@ -35,23 +35,9 @@ typedef NS_ENUM(NSUInteger,CorePromiseState) {
     CorePromiseStateRejected
 };
 
-@interface ThenPromise : CPPromise
-@end
-@implementation ThenPromise
-@end
-
-@interface ErrorPromise : CPPromise
-@end
-@implementation ErrorPromise
-@end
-
-@interface FinallyPromise : CPPromise
-@end
-@implementation FinallyPromise
-@end
-
 @interface CPPromise ()
 
+@property (nonatomic,copy) NSString* UUID;
 @property (nonatomic,assign) CorePromiseState state;
 @property (nonatomic,assign) NSInteger identifier;
 @property (nonatomic,strong) id value;
@@ -75,6 +61,106 @@ typedef NS_ENUM(NSUInteger,CorePromiseState) {
 
 @end
 
+@interface ThenPromise : CPPromise
+@end
+@implementation ThenPromise
+@end
+
+@interface ErrorPromise : CPPromise
+@end
+@implementation ErrorPromise
+@end
+
+@interface FinallyPromise : CPPromise
+@end
+@implementation FinallyPromise
+@end
+
+@interface WhenPromise : CPPromise
+
+@property (nonatomic,copy) NSArray<CPPromise*>* promises;
+@property (nonatomic,strong) NSMutableArray<CPPromise*>* observedPromises;
+@property (nonatomic,strong) NSMutableDictionary* promiseResults;
+
+@end
+
+@implementation WhenPromise
+
+static NSMutableArray* _whenPromises = nil;
++ (void)load
+{
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _whenPromises = [NSMutableArray array];
+    });
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    _observedPromises = [NSMutableArray array];
+    [_whenPromises addObject:self];
+    return self;
+}
+
+- (void)setPromises:(NSArray<CPPromise *> *)promises
+{
+    for ( CPPromise* p in self.observedPromises )
+        [p removeObserver:self forKeyPath:@"state" context:NULL];
+    [self.observedPromises removeAllObjects];
+    
+    _promises = [promises copy];
+    _promiseResults = [NSMutableDictionary dictionary];
+    
+    for ( CPPromise* p in _promises )
+    {
+        if ( p.state != CorePromiseStatePending )
+            _promiseResults[p.UUID] = p.value;
+        else
+        {
+            [_observedPromises addObject:p];
+            [p addObserver:self forKeyPath:@"state" options:0 context:NULL];
+        }
+        
+    }
+}
+
+- (void)dealloc
+{
+    _promises = nil;
+    for ( CPPromise* p in _observedPromises )
+        [p removeObserver:self forKeyPath:@"state" context:NULL];
+    _observedPromises = nil;
+    _promiseResults = nil;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if ( [keyPath isEqualToString:@"state"] )
+    {
+        CPPromise* p = (CPPromise*)object;
+        if( p.state != CorePromiseStatePending )
+        {
+            [p removeObserver:self forKeyPath:@"state" context:NULL];
+            [_observedPromises removeObject:p];
+            
+            self.promiseResults[p.UUID] = p.value;
+            if ( self.observedPromises.count == 0 )
+            {
+                [self markStateWithValue: self.promiseResults.allValues];
+                dispatch_async( dispatch_get_main_queue(), ^{
+                    [_whenPromises removeObject:self];
+                });
+            }
+        }
+    }
+    else
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+@end
+
 @implementation CPPromise
 
 - (instancetype)init
@@ -83,6 +169,7 @@ typedef NS_ENUM(NSUInteger,CorePromiseState) {
     count++;
     self = [super init];
     _identifier = count;
+    _UUID = [[NSUUID UUID] UUIDString];
     _value = nil;
     _state = CorePromiseStatePending;
     
@@ -254,6 +341,16 @@ typedef NS_ENUM(NSUInteger,CorePromiseState) {
     [self _bubbleValueToNextPromise];
 }
 
+- (void)setState:(CorePromiseState)state
+{
+    if ( state != _state )
+    {
+        [self willChangeValueForKey:@"state"];
+        _state = state;
+        [self didChangeValueForKey:@"state"];
+    }
+}
+
 + (instancetype)promiseWithValue:(id)value
 {
     CPPromise* p = [self pendingPromise];
@@ -272,6 +369,13 @@ typedef NS_ENUM(NSUInteger,CorePromiseState) {
 + (instancetype)promise
 {
     return [self promiseWithValue:nil];
+}
+
++ (instancetype)when:(NSArray<CPPromise*>*)promises
+{
+    WhenPromise* promise = [WhenPromise pendingPromise];
+    promise.promises = promises;
+    return promise;
 }
 
 - (CPPromise*)_makeFinally:(CPPromise* (^)(id obj))block

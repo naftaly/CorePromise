@@ -57,6 +57,9 @@ typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType o
 /* creates a fulfilled/rejected promised with a value of 'value' */
 + (instancetype)promiseWithValue:(id)value;
 
+/* creates a promise that is fulfilled when all passed promises are fulfilled or rejected */
++ (instancetype)when:(NSArray<CPPromise*>*)promises;
+
 /* mark a promise as fulfilled or rejected. if value is an NSError, the promise is rejected. */
 - (void)markStateWithValue:(id)value;
 
