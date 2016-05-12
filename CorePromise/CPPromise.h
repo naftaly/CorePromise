@@ -37,6 +37,14 @@ typedef NS_ENUM(NSUInteger,CorePromiseErrorCode) {
 
 NS_CLASS_AVAILABLE(10_11,9_0) @interface CPPromise<__covariant ValueType> : NSObject
 
+/*
+ * use like this:
+ 
+ [CPPromise promise].then( ^id(id val) {
+ 
+ });
+*/
+ 
 typedef CPPromise*(^CorePromiseHandler)( id (^)(ValueType obj) );
 typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
 
@@ -62,6 +70,7 @@ typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType o
 
 /* mark a promise as fulfilled or rejected. if value is an NSError, the promise is rejected. */
 - (void)markStateWithValue:(id)value;
+- (void)markStateWithValue:(id)value completion:(dispatch_block_t)completion;
 
 /* debugging faciity to name a promise */
 @property (nonatomic,copy) NSString* name;

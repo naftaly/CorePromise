@@ -122,6 +122,20 @@ static NSMutableArray* _whenPromises = nil;
             [_observedPromises addObject:p];
             [p addObserver:self forKeyPath:@"state" options:0 context:NULL];
         }
+    }
+    
+    [self _finalizeIfNeeded];
+}
+
+- (void)_finalizeIfNeeded
+{
+    if ( self.observedPromises.count == 0 )
+    {
+        [self markStateWithValue: [self.promiseResults.allValues copy] completion:^{
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [_whenPromises removeObject:self];
+            });
+        }];
         
     }
 }
@@ -144,15 +158,9 @@ static NSMutableArray* _whenPromises = nil;
         {
             [p removeObserver:self forKeyPath:@"state" context:NULL];
             [_observedPromises removeObject:p];
-            
+    
             self.promiseResults[p.UUID] = p.value;
-            if ( self.observedPromises.count == 0 )
-            {
-                [self markStateWithValue: self.promiseResults.allValues];
-                dispatch_async( dispatch_get_main_queue(), ^{
-                    [_whenPromises removeObject:self];
-                });
-            }
+            [self _finalizeIfNeeded];
         }
     }
     else
@@ -263,7 +271,23 @@ static NSMutableArray* _whenPromises = nil;
     return res;
 }
 
-- (void)_bubbleValueToNextPromise
+- (void)runOnQueue:(NSOperationQueue*)queue block:(dispatch_block_t)block
+{
+    if ( !block )
+        return;
+    
+    //if ( !queue || queue == [NSOperationQueue currentQueue] )
+    //    block();
+    //else
+    {
+        queue = queue ? queue : [NSOperationQueue mainQueue];
+        [queue addOperationWithBlock:^{
+            block();
+        }];
+    }
+}
+
+- (void)_bubbleValueToNextPromiseWithCompletion:(dispatch_block_t)completion
 {
     if( self.state == CorePromiseStateFulfilled )
     {
@@ -271,8 +295,8 @@ static NSMutableArray* _whenPromises = nil;
         CPPromise* p = [self _findNextNonErrorAndNonFinallyPromise];
         if ( p && p._callback )
         {
-            [p._callbackQueue addOperationWithBlock:^{
-                
+            [self runOnQueue:p._callbackQueue block:^{
+
                 id res = [p _callCallbackWithValue:self.value];
                 
                 // insert the new promise between our p and its next promise
@@ -289,8 +313,8 @@ static NSMutableArray* _whenPromises = nil;
                     }
                 }
                 
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [p markStateWithValue:res];
+                [self runOnQueue:[NSOperationQueue mainQueue] block:^{
+                    [p markStateWithValue:res completion:completion];
                 }];
 
             }];
@@ -302,11 +326,20 @@ static NSMutableArray* _whenPromises = nil;
             p = [self _findFinallyPromise];
             if ( p && p._callback )
             {
-                [p._callbackQueue addOperationWithBlock:^{
+                [self runOnQueue:p._callbackQueue block:^{
                     [p _callCallbackWithValue:self.value];
+                    if ( completion )
+                        completion();
                 }];
             }
+            else
+            {
+                if ( completion )
+                    completion();
+            }
         }
+        else if ( completion )
+            completion();
     }
     else if ( self.state == CorePromiseStateRejected )
     {
@@ -315,11 +348,11 @@ static NSMutableArray* _whenPromises = nil;
         
         if ( nextErrorPromise && nextErrorPromise._callback )
         {
-            [nextErrorPromise._callbackQueue addOperationWithBlock:^{
-                
+            [self runOnQueue:nextErrorPromise._callbackQueue block:^{
+
                 id res = [nextErrorPromise _callCallbackWithValue:self.value];
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [nextErrorPromise markStateWithValue:res];
+                [self runOnQueue:[NSOperationQueue mainQueue] block:^{
+                    [nextErrorPromise markStateWithValue:res completion:completion];
                 }];
                 
             }];
@@ -327,18 +360,29 @@ static NSMutableArray* _whenPromises = nil;
         }
         else if ( nextThenPromise )
         {
-            [nextThenPromise markStateWithValue:self.value];
+            [nextThenPromise markStateWithValue:self.value completion:completion];
         }
+        else if ( completion )
+            completion();
     }
+    else if ( completion )
+        completion();
 }
+
 
 - (void)markStateWithValue:(id)value
 {
+    [self markStateWithValue:value completion:nil];
+}
+
+- (void)markStateWithValue:(id)value completion:(dispatch_block_t)completion
+{
     NSAssert( self.state == CorePromiseStatePending, @"State is not pending" );
+    //NSAssert( [NSThread isMainThread], @"needs to be main thread" );
     
     self.value = value;
     self.state = [value isKindOfClass:[NSError class]] ? CorePromiseStateRejected : CorePromiseStateFulfilled;
-    [self _bubbleValueToNextPromise];
+    [self _bubbleValueToNextPromiseWithCompletion:completion];
 }
 
 - (void)setState:(CorePromiseState)state
@@ -356,7 +400,7 @@ static NSMutableArray* _whenPromises = nil;
     CPPromise* p = [self pendingPromise];
     dispatch_async( dispatch_get_main_queue(), ^{
         if ( !p.parent )
-            [p markStateWithValue:value];
+            [p markStateWithValue:value completion:nil];
     });
     return p;
 }
@@ -412,6 +456,13 @@ static NSMutableArray* _whenPromises = nil;
         self.nextPromise.parent = nil;
 
     self.nextPromise = p;
+    
+    if ( self.state != CorePromiseStatePending )
+    {
+        [self runOnQueue:[NSOperationQueue mainQueue] block:^{
+            [self _bubbleValueToNextPromiseWithCompletion:nil];
+        }];
+    }
     
     return p;
 }
