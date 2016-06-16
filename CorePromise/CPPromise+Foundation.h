@@ -26,11 +26,11 @@
 
 @interface NSURLSession (CPPromise)
 
-- (CPPromise<NSData*>*)promiseWithURL:(NSURL*)URL;
-- (CPPromise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
+- (CPPromise*)promiseWithURL:(NSURL*)URL;
+- (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
-+ (CPPromise<NSData*>*)promiseWithURL:(NSURL*)URL;
-+ (CPPromise<NSData*>*)promiseWithURLRequest:(NSURLRequest*)request;
++ (CPPromise*)promiseWithURL:(NSURL*)URL;
++ (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
 @end
 
@@ -40,17 +40,9 @@
 
 @end
 
-@interface NSFileHandle (CPPromise)
-
-- (CPPromise<NSData*>*)promiseRead;
-- (CPPromise<NSData*>*)promiseReadToEndOfFile;
-- (CPPromise<NSFileHandle*>*)promiseWaitForData;
-
-@end
-
 @interface NSNotificationCenter (CPPromise)
 
-- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName;
-- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object;
+- (CPPromise*)promiseObserveOnce:(NSString*)notificationName;
+- (CPPromise*)promiseObserveOnce:(NSString*)notificationName object:(id)object;
 
 @end

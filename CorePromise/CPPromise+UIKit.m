@@ -35,20 +35,20 @@
 
 + (CPPromise*)promiseAnimateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations
 {
-    CPPromise* p = [UIViewAnimationPromise pendingPromise];
-    [self animateWithDuration:duration delay:delay options:options animations:animations completion:^(BOOL finished) {
-        [p markStateWithValue:@(finished)];
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        [self animateWithDuration:duration delay:delay options:options animations:animations completion:^(BOOL finished) {
+            fulfill( @(finished) );
+        }];
     }];
-    return p;
 }
 
 + (CPPromise*)promiseAnimateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations
 {
-    CPPromise* p = [UIViewAnimationPromise pendingPromise];
-    [self animateWithDuration:duration animations:animations completion:^(BOOL finished) {
-        [p markStateWithValue:@(finished)];
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        [self animateWithDuration:duration animations:animations completion:^(BOOL finished) {
+            fulfill( @(finished) );
+        }];
     }];
-    return p;
 }
 
 - (CPPromise*)promiseSpringAnimationWithMass:(CGFloat)mass stiffness:(CGFloat)stiffness damping:(CGFloat)damping initialVelocity:(CGFloat)initialVelocity forKeyPath:(NSString*)keyPath fromValue:(NSValue*)fromValue toValue:(NSValue*)toValue
@@ -65,19 +65,19 @@
     // tell the model where it actually ends up ( this is so the layer does not bounce back to the original position )
     [self.layer setValue:toValue forKeyPath:keyPath];
     
-    UIViewAnimationPromise* p = [UIViewAnimationPromise pendingPromise];
-    
-    [CATransaction begin];
-    
-    [CATransaction setCompletionBlock:^{
-        [p markStateWithValue:self];
+    return [UIViewAnimationPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+
+        [CATransaction begin];
+        
+        [CATransaction setCompletionBlock:^{
+            fulfill(self);
+        }];
+        
+        [self.layer addAnimation:spring forKey:@"promise_spring"];
+        
+        [CATransaction commit];
     }];
-    
-    [self.layer addAnimation:spring forKey:@"promise_spring"];
-    
-    [CATransaction commit];
-    
-    return p;
+
 }
 
 @end

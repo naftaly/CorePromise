@@ -44,20 +44,20 @@ NS_CLASS_AVAILABLE(10_11,9_0) @interface CPPromise<__covariant ValueType> : NSOb
  
  });
 */
- 
-typedef CPPromise*(^CorePromiseHandler)( id (^)(ValueType obj) );
-typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType obj) );
 
-@property (nonatomic,copy,readonly) CorePromiseOnHandler thenOn;
-@property (nonatomic,copy,readonly) CorePromiseHandler then;
-@property (nonatomic,copy,readonly) CorePromiseHandler error;
-@property (nonatomic,copy,readonly) CorePromiseHandler finally;
+typedef id(^CorePromiseFulfillHandler)( id value );
+typedef id(^CorePromiseRejectHandler)( id reson );
+
+typedef CPPromise*(^CorePromiseBlock)( CorePromiseFulfillHandler onFulfill, CorePromiseRejectHandler onRejected );
+
+@property (nonatomic,copy,readonly) CorePromiseBlock done;
+@property (nonatomic,copy,readonly) CorePromiseBlock then;
 
 /* a promise is resolved when value != nil */
 @property (nonatomic,readonly) id/* ValueType */ value;
 
-/* creates a promise in a pending state. call markStateWithValue: when you are ready */
-+ (instancetype)pendingPromise;
+/* basic building block for a promise */
++ (instancetype)promiseWithBlock:(CorePromiseBlock)bloc;
 
 /* creates a fulfilled promised with a nil value */
 + (instancetype)promise;
@@ -68,18 +68,8 @@ typedef CPPromise*(^CorePromiseOnHandler)( NSOperationQueue*, id (^)(ValueType o
 /* creates a promise that is fulfilled when all passed promises are fulfilled or rejected */
 + (instancetype)when:(NSArray<CPPromise*>*)promises;
 
-/* mark a promise as fulfilled or rejected. if value is an NSError, the promise is rejected. */
-- (void)markStateWithValue:(id)value;
-- (void)markStateWithValue:(id)value completion:(dispatch_block_t)completion;
-
 /* debugging faciity to name a promise */
 @property (nonatomic,copy) NSString* name;
-
-/* the root promise in this chain */
-@property (nonatomic,readonly) CPPromise* root;
-
-/* the parent promise */
-@property (nonatomic,weak,readonly) CPPromise* parent;
 
 @end
 

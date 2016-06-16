@@ -39,28 +39,34 @@
 
 - (CPPromise*)promiseWithURL:(NSURL*)URL
 {
-    CPPromise* p = [CPPromise pendingPromise];
-    
-    [[self dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [p markStateWithValue: error ? error : data];
-        }];
-    }] resume];
-    
-    return p;
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        
+        [[self dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if ( error )
+                    reject(error);
+                else
+                    fulfill(data);
+            }];
+        }] resume];
+        
+    }];
 }
 
 - (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
 {
-    CPPromise* p = [CPPromise pendingPromise];
-    
-    [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [p markStateWithValue: error ? error : data];
-        }];
-    }] resume];
-    
-    return p;
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+
+        [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if ( error )
+                    reject(error);
+                else
+                    fulfill(data);
+            }];
+        }] resume];
+
+    }];
 }
 
 @end
@@ -69,64 +75,33 @@
 
 + (CPPromise*)promiseScheduledTimerWithTimeInterval:(NSTimeInterval)ti
 {
-    CPPromise* p = [CPPromise pendingPromise];
-    [NSTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(_promise_timer_fired:) userInfo:p repeats:NO];
-    return p;
-}
-
-+ (void)_promise_timer_fired:(NSTimer*)timer
-{
-    CPPromise* p = timer.userInfo;
-    [p markStateWithValue:nil];
-}
-
-@end
-
-@implementation NSFileHandle (CPPromise)
-
-- (CPPromise*)promiseRead
-{
-    [self readInBackgroundAndNotify];
-    return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleReadCompletionNotification object:self].then( ^id(NSNotification* note) {
-        return note.userInfo[NSFileHandleNotificationDataItem];
-    });
-}
-
-- (CPPromise*)promiseReadToEndOfFile
-{
-    [self readToEndOfFileInBackgroundAndNotify];
-    return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleReadToEndOfFileCompletionNotification object:self].then( ^id(NSNotification* note) {
-        return note.userInfo[NSFileHandleNotificationDataItem];
-    });
-}
-
-- (CPPromise*)promiseWaitForData
-{
-    [self waitForDataInBackgroundAndNotify];
-    return [[NSNotificationCenter defaultCenter] promiseObserveOnce:NSFileHandleDataAvailableNotification object:self].then( ^id(NSNotification* note) {
-        return note.object;
-    });
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ti * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            fulfill(nil);
+        });
+    }];
 }
 
 @end
 
 @implementation NSNotificationCenter (CPPromise)
 
-- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName
+- (CPPromise*)promiseObserveOnce:(NSString*)notificationName
 {
     return [self promiseObserveOnce:notificationName object:nil];
 }
 
-- (CPPromise<NSNotification*>*)promiseObserveOnce:(NSString*)notificationName object:(id)object
+- (CPPromise*)promiseObserveOnce:(NSString*)notificationName object:(id)object
 {
-    CPPromise* p = [CPPromise pendingPromise];
-    
-    __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:notificationName object:object queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-        [[NSNotificationCenter defaultCenter] removeObserver:observer];
-        [p markStateWithValue: note];
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+
+        __block id observer = [[NSNotificationCenter defaultCenter] addObserverForName:notificationName object:object queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            [[NSNotificationCenter defaultCenter] removeObserver:observer];
+            fulfill(note);
+        }];
+
     }];
 
-    return p;
 }
 
 @end
