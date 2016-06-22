@@ -27,6 +27,11 @@
 
 @implementation NSURLSession (CPPromise)
 
++ (CPPromise *)promiseForFileWithURL:(NSURL *)URL destinationURL:(NSURL*)destinationURL
+{
+    return [[NSURLSession sharedSession] promiseForFileWithURL:URL destinationURL:destinationURL];
+}
+
 + (CPPromise*)promiseWithURL:(NSURL*)URL
 {
     return [[NSURLSession sharedSession] promiseWithURL:URL];
@@ -35,6 +40,34 @@
 + (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
 {
     return [[NSURLSession sharedSession] promiseWithURLRequest:request];
+}
+
+- (CPPromise *)promiseForFileWithURL:(NSURL *)URL destinationURL:(NSURL*)destinationURL
+{
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        
+        [[self downloadTaskWithURL:URL completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            if ( error )
+            {
+                reject(error);
+                return;
+            }
+            
+            [[NSFileManager defaultManager] removeItemAtURL:destinationURL error:nil];
+            
+            NSError* copyError = nil;
+            if ( ![[NSFileManager defaultManager] copyItemAtURL:location toURL:destinationURL error:&copyError] )
+            {
+                reject(copyError);
+                return;
+            }
+            
+            fulfill(destinationURL);
+            
+        }] resume];
+
+    }];
 }
 
 - (CPPromise*)promiseWithURL:(NSURL*)URL

@@ -26,9 +26,11 @@
 
 @interface NSURLSession (CPPromise)
 
+- (CPPromise*)promiseForFileWithURL:(NSURL*)URL destinationURL:(NSURL*)destinationURL;
 - (CPPromise*)promiseWithURL:(NSURL*)URL;
 - (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
++ (CPPromise*)promiseForFileWithURL:(NSURL*)URL destinationURL:(NSURL*)destinationURL;
 + (CPPromise*)promiseWithURL:(NSURL*)URL;
 + (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
