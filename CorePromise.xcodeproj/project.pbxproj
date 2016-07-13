@@ -20,7 +20,7 @@
 		FA777AA31D1193210073D904 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FA777A821D1193210073D904 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AA81D11993D0073D904 /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AA91D11993D0073D904 /* CPPromise+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */; };
-		FA777AAA1D11993E0073D904 /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; };
+		FA777AAA1D11993E0073D904 /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AAB1D11993E0073D904 /* CPPromise+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */; };
 		FA777AAC1D1199430073D904 /* CPPromise+UIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C221C7BC6BC007A9ED4 /* CPPromise+UIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AAD1D1199430073D904 /* CPPromise+UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */; };
@@ -399,6 +399,7 @@
 		FA694B0D1CBC013A00217206 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -421,6 +422,7 @@
 		FA694B0E1CBC013A00217206 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
