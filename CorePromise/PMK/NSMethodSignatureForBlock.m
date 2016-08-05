@@ -46,6 +46,8 @@ NS_INLINE const char * pmk_removeQuotesFromMethodSignature(const char *str){
 }
 #endif
 
+#pragma clang diagnostic push 
+#pragma clang diagnostic ignored "-Wunused-function"
 static NSMethodSignature *NSMethodSignatureForBlock(id block) {
     if (!block)
         return nil;
@@ -75,3 +77,5 @@ static NSMethodSignature *NSMethodSignatureForBlock(id block) {
     }
     return 0;
 }
+#pragma clang diagnostic pop
+
