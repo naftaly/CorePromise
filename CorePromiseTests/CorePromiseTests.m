@@ -221,7 +221,7 @@
         
         
     })
-    .finally( ^{
+    .finally( ^(id nop){
 
         [expectation fulfill];
         
