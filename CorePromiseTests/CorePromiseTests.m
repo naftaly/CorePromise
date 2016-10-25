@@ -80,14 +80,42 @@
     }];
 }
 
+- (void)testPromiseWithError
+{
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
+    
+    CPPromise* p = [CPPromise promiseWithError:[NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil]];
+    
+    p.error( ^id(NSError* error) {
+        
+        XCTAssertNotNil(error);
+        XCTAssertEqual( error.code, 1 );
+        XCTAssertEqual( p.isRejected, YES );
+        
+        [expectation fulfill];
+        return nil;
+    });
+    
+    [self waitForExpectationsWithTimeout:60 handler:^(NSError * _Nullable error) {
+        if (error)
+            NSLog(@"Timeout Error: %@", error);
+    }];
+}
+
 - (void)testFulfilledPromiseWithValue
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
     
-    [CPPromise promiseWithValue:@(1)].then( ^ id (NSNumber* obj) {
+    CPPromise* p = [CPPromise promiseWithValue:@(1)];
+    
+    p.then( ^ id (NSNumber* obj) {
         
         XCTAssertNotNil(obj);
         XCTAssertEqual( obj.integerValue, 1);
+        XCTAssertEqual( p.isFulfilled, YES );
+        XCTAssertEqual( p.isRejected, NO );
+        XCTAssertEqual( p.isPending, NO );
+        XCTAssertEqual( p.isResolved, YES );
         [expectation fulfill];
         return nil;
     });
@@ -102,11 +130,14 @@
 {
     XCTestExpectation *expectation = [self expectationWithDescription:@"Basic expectation"];
     
-    [CPPromise promiseWithValue:[NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil]]
-    .error( ^id(NSError* error) {
+    CPPromise* p = [CPPromise promiseWithValue:[NSError errorWithDomain:CorePromiseErrorDomain code:1 userInfo:nil]];
+    
+    p.error( ^id(NSError* error) {
         
         XCTAssertNotNil(error);
         XCTAssertEqual( error.code, 1 );
+        XCTAssertEqual( p.isRejected, YES );
+        
         [expectation fulfill];
         return nil;
     });

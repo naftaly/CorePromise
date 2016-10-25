@@ -19,6 +19,7 @@
 		FA7A4C081C7BC6A3007A9ED4 /* CorePromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C071C7BC6A3007A9ED4 /* CorePromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A4C0F1C7BC6A3007A9ED4 /* CorePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA7A4C041C7BC6A3007A9ED4 /* CorePromise.framework */; };
 		FA7A4C141C7BC6A3007A9ED4 /* CorePromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C131C7BC6A3007A9ED4 /* CorePromiseTests.m */; };
+		FA97DDFF1DBCFB54007A6802 /* 04_AllTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97DDFE1DBCFB54007A6802 /* 04_AllTests.m */; };
 		FAFE4AB81DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4AB91DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4ABA1DB9457C005D1092 /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
@@ -67,6 +68,7 @@
 		FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPPromise+Foundation.m"; sourceTree = "<group>"; };
 		FA7A4C221C7BC6BC007A9ED4 /* CPPromise+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPPromise+UIKit.h"; sourceTree = "<group>"; };
 		FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPPromise+UIKit.m"; sourceTree = "<group>"; };
+		FA97DDFE1DBCFB54007A6802 /* 04_AllTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 04_AllTests.m; sourceTree = "<group>"; };
 		FAFE4AB61DB9457C005D1092 /* CPPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPromise.h; sourceTree = "<group>"; };
 		FAFE4AB71DB9457C005D1092 /* CPPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPromise.m; sourceTree = "<group>"; };
 		FAFE4AFF1DBA5147005D1092 /* 01_AnyPromiseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = 01_AnyPromiseTests.m; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				FAFE4B021DBA5147005D1092 /* 03_HangTests.m */,
 				FAFE4B031DBA5147005D1092 /* 03_JoinTests.m */,
 				FAFE4B041DBA5147005D1092 /* 03_WhenTests.m */,
+				FA97DDFE1DBCFB54007A6802 /* 04_AllTests.m */,
 				FA7A4C151C7BC6A3007A9ED4 /* Info.plist */,
 			);
 			path = CorePromiseTests;
@@ -376,6 +379,7 @@
 				FA7A4C141C7BC6A3007A9ED4 /* CorePromiseTests.m in Sources */,
 				FAFE4B0B1DBA5147005D1092 /* 03_JoinTests.m in Sources */,
 				FAFE4B0A1DBA5147005D1092 /* 03_HangTests.m in Sources */,
+				FA97DDFF1DBCFB54007A6802 /* 04_AllTests.m in Sources */,
 				FAFE4B0E1DBA6FBB005D1092 /* 03_WhenTests.m in Sources */,
 				FAFE4B071DBA5147005D1092 /* 01_AnyPromiseTests.m in Sources */,
 			);

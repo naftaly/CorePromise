@@ -394,7 +394,7 @@ static inline CPPromise *fulfillLater() {
         return nil;
     });
     
-    [self waitForExpectationsWithTimeout:5 handler:nil];
+    [self waitForExpectationsWithTimeout:20 handler:nil];
 }
 
 - (void)test_26_promise_then_promise_fail_promise_fail {
@@ -706,7 +706,7 @@ static inline CPPromise *fulfillLater() {
         [ex1 fulfill];
         return nil;
     });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    [self waitForExpectationsWithTimeout:20 handler:nil];
 }
 
 - (void)test_53_return_rejected_promise {
@@ -719,7 +719,7 @@ static inline CPPromise *fulfillLater() {
         [ex1 fulfill];
         return nil;
     });
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)test_54_reject_with_rejected_promise {

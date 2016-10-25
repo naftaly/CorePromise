@@ -97,11 +97,11 @@ typedef void(^CPPromiseFinallyOn)( NSOperationQueue* queue, CPPromiseFinallyBloc
 
 @end
 
+#ifndef __cplusplus
 @interface CPPromise (Cacthing)
-
 @property (nonatomic,copy,readonly) CPPromiseError catch;
-
 @end
+#endif
 
 /*
  * this is mostly for tests and compatibility with PromiseKit
@@ -109,6 +109,7 @@ typedef void(^CPPromiseFinallyOn)( NSOperationQueue* queue, CPPromiseFinallyBloc
 extern CPPromise* CorePromiseAfter(NSTimeInterval time);
 extern CPPromise* CorePromiseJoin(NSArray* promises);
 extern CPPromise* CorePromiseWhen(NSArray* promises);
+extern CPPromise* CorePromiseAll(NSArray* promises);
 extern id         CorePromiseHang(CPPromise* promise);
 
 extern CPPromise* CorePromiseDispatchOn(NSOperationQueue* queue, CPPromiseThenBlock block);

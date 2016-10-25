@@ -531,11 +531,11 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 
 @end
 
+#ifndef __cplusplus
 @implementation CPPromise (Cacthing)
-
 - (CPPromiseError)catch { return self.error; }
-
 @end
+#endif
 
 CPPromise* CorePromiseAfter(NSTimeInterval time)
 {
@@ -554,6 +554,11 @@ CPPromise* CorePromiseJoin(NSArray* promises)
 CPPromise* CorePromiseWhen(NSArray* promises)
 {
     return [CPPromise when:promises];
+}
+
+CPPromise* CorePromiseAll(NSArray* promises)
+{
+    return [CPPromise all:promises];
 }
 
 CPPromise* CorePromiseDispatchOn( NSOperationQueue* queue, CPPromiseThenBlock block)
