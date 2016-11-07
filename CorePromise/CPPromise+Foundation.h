@@ -29,11 +29,11 @@
 typedef void(^NSURLSessionPromiseProgressHandler)( NSURL* URL, double progress, BOOL first );
 
 - (CPPromise*)promiseForFileWithURL:(NSURL*)URL destinationURL:(NSURL*)destinationURL progress:(NSURLSessionPromiseProgressHandler)progress;
-- (CPPromise*)promiseWithURL:(NSURL*)URL;
+- (CPPromise*)promiseWithURL:(NSURL*)URL headers:(NSDictionary<NSString*,NSString*>*)headers;
 - (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
 + (CPPromise*)promiseForFileWithURL:(NSURL*)URL destinationURL:(NSURL*)destinationURL progress:(NSURLSessionPromiseProgressHandler)progress;
-+ (CPPromise*)promiseWithURL:(NSURL*)URL;
++ (CPPromise*)promiseWithURL:(NSURL*)URL headers:(NSDictionary<NSString*,NSString*>*)headers;
 + (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request;
 
 @end

@@ -217,9 +217,9 @@
     return [[NSURLSession cp_progressSession] promiseForFileWithURL:URL destinationURL:destinationURL progress:progress];
 }
 
-+ (CPPromise*)promiseWithURL:(NSURL*)URL
++ (CPPromise*)promiseWithURL:(NSURL*)URL headers:(NSDictionary<NSString*,NSString*>*)headers
 {
-    return [[NSURLSession sharedSession] promiseWithURL:URL];
+    return [[NSURLSession sharedSession] promiseWithURL:URL headers:headers];
 }
 
 + (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
@@ -243,14 +243,28 @@
     }];
 }
 
-- (CPPromise*)promiseWithURL:(NSURL*)URL
+- (CPPromise*)promiseWithURL:(NSURL*)URL headers:(NSDictionary<NSString*,NSString*>*)headers
 {
     return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
         
-        [[self dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
+        [headers enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            [request setValue:obj forHTTPHeaderField:key];
+        }];
+        
+#if DEBUG
+        NSLog(@"NSURLSession (CPPromise) - %@", request.URL );
+#endif
+        
+        [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 if ( error )
+                {
+#if DEBUG
+                    NSLog(@"NSURLSession Error (CPPromise) - %@", error );
+#endif
                     reject(error);
+                }
                 else
                     fulfill(data);
             }];
@@ -262,6 +276,8 @@
 - (CPPromise*)promiseWithURLRequest:(NSURLRequest*)request
 {
     return [CPPromise promiseWithBlock:^(CPPromiseFulfiller fulfill, CPPromiseRejecter reject) {
+        
+        //NSLog(@"NSURLSession (CPPromise) - %@", request.URL );
         
         [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{

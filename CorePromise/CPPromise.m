@@ -242,7 +242,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
     if ( [result isKindOfClass:[CPPromise class]] )
     {
         CPPromise* next = result;
-        id nextResult = next.value;
+        id nextResult = next.result;
         if ( nextResult == nil )
         {
             [next.lock lock];
