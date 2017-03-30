@@ -25,11 +25,16 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+#import <CorePromise/CorePromise.h>
+@import XCTest;
 
-#import <CorePromise/CPPromise.h>
-#import <CorePromise/CPPromise+Foundation.h>
+@interface HangTests: XCTestCase @end @implementation HangTests
 
-#if TARGET_OS_IOS
-#import <CorePromise/CPPromise+UIKit.h>
-#endif
+- (void)test {
+    __block int x = 0;
+    id value = CorePromiseHang(CorePromiseAfter(0.02).then(^id(id nop){ x++; return @1; }));
+    XCTAssertEqual(x, 1);
+    XCTAssertEqualObjects(value, @1);
+}
+
+@end

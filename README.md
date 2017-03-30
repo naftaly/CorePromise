@@ -1,1 +1,32 @@
 # CorePromise
+
+CorePromise is a Promise framework.
+
+## Installation
+
+CorePromise is available on [CocoaPods](http://cocoapods.org). Just add the following to your project Podfile:
+
+```ruby
+pod 'CorePromise'
+```
+
+## Usage
+
+First include it using the following import:
+
+```objective-c
+#import <CorePromise/CorePromise.h>
+```
+
+[CPPromise promise]
+.then( ^id(id nop) {
+	return nil;
+});
+
+ ```
+
+## License
+
+CorePromise is released under a MIT License. See LICENSE file for details.
+
+
