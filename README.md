@@ -12,11 +12,10 @@ pod 'CorePromise'
 
 ## Usage
 
-First include it using the following import:
+Use it as follows:
 
 ```objective-c
 #import <CorePromise/CorePromise.h>
-```
 
 [CPPromise promise]
 .then( ^id(id nop) {
