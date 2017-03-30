@@ -15,6 +15,24 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 	
-  s.source_files = [ 'CorePromise/CorePromise.h', 'CorePromise/CPPromise.h', 'CorePromise/CPPromise.m', 'CorePromise/CPPromise+Foundation.h', 'CorePromise/CPPromise+Foundation.m', 'CorePromise/CPPromise+UIKit.h', 'CorePromise/CPPromise+UIKit.m' ]
-  s.public_header_files = [ 'CorePromise/CorePromise.h', 'CorePromise/CPPromise.h', 'CorePromise/CPPromise+Foundation.h', 'CorePromise/CPPromise+UIKit.h' ]
+  s.ios.source_files = [ 'CorePromise/CorePromise.h', 
+    'CorePromise/CPPromise.h', 
+    'CorePromise/CPPromise.m', 
+    'CorePromise/CPPromise+Foundation.h', 
+    'CorePromise/CPPromise+Foundation.m', 
+    'CorePromise/CPPromise+UIKit.h', 
+    'CorePromise/CPPromise+UIKit.m' ]
+  s.ios.public_header_files = [ 'CorePromise/CorePromise.h', 
+    'CorePromise/CPPromise.h', 
+    'CorePromise/CPPromise+Foundation.h', 
+    'CorePromise/CPPromise+UIKit.h' ]
+    
+    s.osx.source_files = [ 'CorePromise/CorePromise.h', 
+      'CorePromise/CPPromise.h', 
+      'CorePromise/CPPromise.m', 
+      'CorePromise/CPPromise+Foundation.h', 
+      'CorePromise/CPPromise+Foundation.m' ]
+    s.osx.public_header_files = [ 'CorePromise/CorePromise.h', 
+      'CorePromise/CPPromise.h', 
+      'CorePromise/CPPromise+Foundation.h' ]
 end
