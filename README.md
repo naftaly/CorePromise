@@ -1,7 +1,5 @@
 # CorePromise
 
-[![Build Status](https://travis-ci.org/naftaly/CorePromise.svg?branch=master)](https://travis-ci.org/naftaly/CorePromise)
-
 CorePromise is a Promise framework.
 
 ## Installation
