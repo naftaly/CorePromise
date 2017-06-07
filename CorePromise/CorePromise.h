@@ -30,6 +30,6 @@
 #import <CorePromise/CPPromise.h>
 #import <CorePromise/CPPromise+Foundation.h>
 
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import <CorePromise/CPPromise+UIKit.h>
 #endif

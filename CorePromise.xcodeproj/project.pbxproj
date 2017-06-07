@@ -18,6 +18,13 @@
 		FA7A4C0F1C7BC6A3007A9ED4 /* CorePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA7A4C041C7BC6A3007A9ED4 /* CorePromise.framework */; };
 		FA7A4C141C7BC6A3007A9ED4 /* CorePromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C131C7BC6A3007A9ED4 /* CorePromiseTests.m */; };
 		FA97DDFF1DBCFB54007A6802 /* AllTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97DDFE1DBCFB54007A6802 /* AllTests.m */; };
+		FAAFB8C81EDB710500EB550B /* CPPromise+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */; };
+		FAAFB8C91EDB710500EB550B /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
+		FAAFB8CA1EDB710500EB550B /* CPPromise+UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */; };
+		FAAFB8CD1EDB710500EB550B /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAAFB8CE1EDB710500EB550B /* CorePromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C071C7BC6A3007A9ED4 /* CorePromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAAFB8CF1EDB710500EB550B /* CPPromise+UIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C221C7BC6BC007A9ED4 /* CPPromise+UIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAAFB8D01EDB710500EB550B /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4AB81DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4AB91DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4ABA1DB9457C005D1092 /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
@@ -53,6 +60,7 @@
 		FA7A4C221C7BC6BC007A9ED4 /* CPPromise+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPPromise+UIKit.h"; sourceTree = "<group>"; };
 		FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CPPromise+UIKit.m"; sourceTree = "<group>"; };
 		FA97DDFE1DBCFB54007A6802 /* AllTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllTests.m; sourceTree = "<group>"; };
+		FAAFB8D51EDB710500EB550B /* CorePromise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePromise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFE4AB61DB9457C005D1092 /* CPPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPromise.h; sourceTree = "<group>"; };
 		FAFE4AB71DB9457C005D1092 /* CPPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPromise.m; sourceTree = "<group>"; };
 		FAFE4AFF1DBA5147005D1092 /* AnyPromiseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyPromiseTests.m; sourceTree = "<group>"; };
@@ -84,6 +92,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FAAFB8CB1EDB710500EB550B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -112,6 +127,7 @@
 				FA7A4C041C7BC6A3007A9ED4 /* CorePromise.framework */,
 				FA7A4C0E1C7BC6A3007A9ED4 /* CorePromiseTests.xctest */,
 				FA694B071CBC013A00217206 /* CorePromise.framework */,
+				FAAFB8D51EDB710500EB550B /* CorePromise.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +182,17 @@
 				FA7A4C081C7BC6A3007A9ED4 /* CorePromise.h in Headers */,
 				FA777AAC1D1199430073D904 /* CPPromise+UIKit.h in Headers */,
 				FAFE4AB81DB9457C005D1092 /* CPPromise.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAAFB8CC1EDB710500EB550B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAAFB8CD1EDB710500EB550B /* CPPromise+Foundation.h in Headers */,
+				FAAFB8CE1EDB710500EB550B /* CorePromise.h in Headers */,
+				FAAFB8CF1EDB710500EB550B /* CPPromise+UIKit.h in Headers */,
+				FAAFB8D01EDB710500EB550B /* CPPromise.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +253,24 @@
 			productReference = FA7A4C0E1C7BC6A3007A9ED4 /* CorePromiseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FAAFB8C61EDB710500EB550B /* CorePromise ATV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAAFB8D21EDB710500EB550B /* Build configuration list for PBXNativeTarget "CorePromise ATV" */;
+			buildPhases = (
+				FAAFB8C71EDB710500EB550B /* Sources */,
+				FAAFB8CB1EDB710500EB550B /* Frameworks */,
+				FAAFB8CC1EDB710500EB550B /* Headers */,
+				FAAFB8D11EDB710500EB550B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CorePromise ATV";
+			productName = CorePromise;
+			productReference = FAAFB8D51EDB710500EB550B /* CorePromise.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -263,6 +308,7 @@
 			projectRoot = "";
 			targets = (
 				FA7A4C031C7BC6A3007A9ED4 /* CorePromise iOS */,
+				FAAFB8C61EDB710500EB550B /* CorePromise ATV */,
 				FA694B061CBC013A00217206 /* CorePromise Mac */,
 				FA7A4C0D1C7BC6A3007A9ED4 /* CorePromiseTests */,
 			);
@@ -285,6 +331,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FA7A4C0C1C7BC6A3007A9ED4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAAFB8D11EDB710500EB550B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,6 +376,16 @@
 				FA97DDFF1DBCFB54007A6802 /* AllTests.m in Sources */,
 				FAFE4B0E1DBA6FBB005D1092 /* WhenTests.m in Sources */,
 				FAFE4B071DBA5147005D1092 /* AnyPromiseTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAAFB8C71EDB710500EB550B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAAFB8C81EDB710500EB550B /* CPPromise+Foundation.m in Sources */,
+				FAAFB8C91EDB710500EB550B /* CPPromise.m in Sources */,
+				FAAFB8CA1EDB710500EB550B /* CPPromise+UIKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +618,54 @@
 			};
 			name = Release;
 		};
+		FAAFB8D31EDB710500EB550B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
+				INFOPLIST_FILE = CorePromise/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
+				PRODUCT_NAME = CorePromise;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FAAFB8D41EDB710500EB550B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
+				INFOPLIST_FILE = CorePromise/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
+				PRODUCT_NAME = CorePromise;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -590,6 +701,15 @@
 			buildConfigurations = (
 				FA7A4C1C1C7BC6A3007A9ED4 /* Debug */,
 				FA7A4C1D1C7BC6A3007A9ED4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAAFB8D21EDB710500EB550B /* Build configuration list for PBXNativeTarget "CorePromise ATV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAAFB8D31EDB710500EB550B /* Debug */,
+				FAAFB8D41EDB710500EB550B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
