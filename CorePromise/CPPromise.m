@@ -434,7 +434,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
         __block NSInteger count = promises.count;
         NSMapTable<CPPromise*,id>* resultsMap = [NSMapTable weakToStrongObjectsMapTable];
         
-        void (^resolveOrRejectDone)() = ^(){
+        void (^resolveOrRejectDone)(void) = ^(){
             if ( count == 0 )
             {
                 NSError*        error = nil;
@@ -504,7 +504,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
         __block NSInteger count = promises.count;
         NSMapTable<CPPromise*,id>* resultsMap = [NSMapTable weakToStrongObjectsMapTable];
         
-        void (^resolveIfDone)() = ^(){
+        void (^resolveIfDone)(void) = ^(){
             if ( count == 0 )
             {
                 NSMutableArray* orderedResults = [NSMutableArray array];

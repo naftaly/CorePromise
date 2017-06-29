@@ -256,7 +256,7 @@
         }];
         
 #if DEBUG
-        NSLog(@"NSURLSession (CPPromise) - %@", request.URL );
+        //NSLog(@"NSURLSession (CPPromise) - %@", request.URL );
 #endif
         
         [[self dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
