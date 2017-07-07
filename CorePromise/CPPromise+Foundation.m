@@ -128,6 +128,8 @@
     if ( t )
     {
         dstURL = t.destinationURL;
+        if ( !dstURL )
+            dstURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
         fulfill = t.fulfill;
         reject = t.reject;
         [self removeTask:t];
