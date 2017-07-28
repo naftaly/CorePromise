@@ -25,12 +25,10 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-
 #import <CorePromise/CPPromise.h>
-#import <CorePromise/CPPromise+Foundation.h>
-#import <CorePromise/CPPromise+NSObject.h>
 
-#if TARGET_OS_IOS || TARGET_OS_TV
-#import <CorePromise/CPPromise+UIKit.h>
-#endif
+@interface NSObject (CPPromise)
+
+- (void)asyncPromise:(CPPromise*)promise forKeyPath:(NSString*)keyPath;
+
+@end

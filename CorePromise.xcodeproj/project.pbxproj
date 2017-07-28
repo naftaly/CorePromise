@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA2682F61F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA2682F71F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA2682F81F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA2682F91F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */; };
+		FA2682FA1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */; };
+		FA2682FB1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */; };
 		FA694B0A1CBC013A00217206 /* CorePromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FA694B091CBC013A00217206 /* CorePromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AA81D11993D0073D904 /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA777AA91D11993D0073D904 /* CPPromise+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */; };
@@ -46,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPPromise+NSObject.h"; sourceTree = "<group>"; };
+		FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CPPromise+NSObject.m"; sourceTree = "<group>"; };
 		FA694B071CBC013A00217206 /* CorePromise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePromise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA694B091CBC013A00217206 /* CorePromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePromise.h; sourceTree = "<group>"; };
 		FA694B0B1CBC013A00217206 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +148,8 @@
 				FAFE4AB71DB9457C005D1092 /* CPPromise.m */,
 				FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */,
 				FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */,
+				FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */,
+				FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */,
 				FA7A4C221C7BC6BC007A9ED4 /* CPPromise+UIKit.h */,
 				FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */,
 				FA7A4C091C7BC6A3007A9ED4 /* Info.plist */,
@@ -169,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA777AAA1D11993E0073D904 /* CPPromise+Foundation.h in Headers */,
+				FA2682F81F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */,
 				FAFE4AB91DB9457C005D1092 /* CPPromise.h in Headers */,
 				FA694B0A1CBC013A00217206 /* CorePromise.h in Headers */,
 			);
@@ -180,6 +191,7 @@
 			files = (
 				FA777AA81D11993D0073D904 /* CPPromise+Foundation.h in Headers */,
 				FA7A4C081C7BC6A3007A9ED4 /* CorePromise.h in Headers */,
+				FA2682F61F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */,
 				FA777AAC1D1199430073D904 /* CPPromise+UIKit.h in Headers */,
 				FAFE4AB81DB9457C005D1092 /* CPPromise.h in Headers */,
 			);
@@ -191,6 +203,7 @@
 			files = (
 				FAAFB8CD1EDB710500EB550B /* CPPromise+Foundation.h in Headers */,
 				FAAFB8CE1EDB710500EB550B /* CorePromise.h in Headers */,
+				FA2682F71F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */,
 				FAAFB8CF1EDB710500EB550B /* CPPromise+UIKit.h in Headers */,
 				FAAFB8D01EDB710500EB550B /* CPPromise.h in Headers */,
 			);
@@ -351,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2682FB1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
 				FAFE4ABB1DB9457C005D1092 /* CPPromise.m in Sources */,
 				FA777AAB1D11993E0073D904 /* CPPromise+Foundation.m in Sources */,
 			);
@@ -362,6 +376,7 @@
 			files = (
 				FA777AA91D11993D0073D904 /* CPPromise+Foundation.m in Sources */,
 				FAFE4ABA1DB9457C005D1092 /* CPPromise.m in Sources */,
+				FA2682F91F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
 				FA777AAD1D1199430073D904 /* CPPromise+UIKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +400,7 @@
 			files = (
 				FAAFB8C81EDB710500EB550B /* CPPromise+Foundation.m in Sources */,
 				FAAFB8C91EDB710500EB550B /* CPPromise.m in Sources */,
+				FA2682FA1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
 				FAAFB8CA1EDB710500EB550B /* CPPromise+UIKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

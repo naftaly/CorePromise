@@ -25,12 +25,23 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+#import "CPPromise+NSObject.h"
 
-#import <CorePromise/CPPromise.h>
-#import <CorePromise/CPPromise+Foundation.h>
-#import <CorePromise/CPPromise+NSObject.h>
+@implementation NSObject (CPPromiseKeyValue)
 
-#if TARGET_OS_IOS || TARGET_OS_TV
-#import <CorePromise/CPPromise+UIKit.h>
-#endif
+- (void)asyncPromise:(CPPromise*)promise forKeyPath:(NSString*)keyPath
+{
+    __weak typeof(self)weakMe = self;
+    promise.then(^id _Nullable(id value) {
+        typeof(self)me = weakMe;
+        [me setValue:value forKeyPath:keyPath];
+        return nil;
+    })
+    .catch(^id _Nullable(NSError* error) {
+        typeof(self)me = weakMe;
+        [me setValue:nil forKeyPath:keyPath];
+        return nil;
+    });
+}
+
+@end
