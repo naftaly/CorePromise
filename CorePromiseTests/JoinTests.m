@@ -47,7 +47,7 @@
               ]).then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *error){
+    }).error(^id(NSError *error){
         id promises = error.userInfo[CorePromiseJoinPromisesKey];
 
         int cume = 0, cumv = 0;
@@ -92,7 +92,7 @@
               ]).then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *error){
+    }).error(^id(NSError *error){
         XCTAssertNotNil(error);
         [ex1 fulfill];
         return nil;

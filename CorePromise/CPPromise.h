@@ -29,10 +29,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger,CorePromiseError) {
+    CorePromiseErrorNone = 0,
+    CorePromiseErrorException
+};
+
 extern NSString* const CorePromiseErrorDomain;
 extern NSString* const CorePromiseFailingIndexKey;
 extern NSString* const CorePromiseJoinPromisesKey;
-
+extern NSString* const CorePromiseExceptionErrorKey;
 
 typedef void(^CPPromiseResolver)(id _Nullable value);
 typedef void(^CPPromiseFulfiller)(id _Nullable value);
@@ -93,16 +98,12 @@ typedef void(^CPPromiseFinallyOn)( NSOperationQueue* queue, CPPromiseFinallyBloc
 @property (nonatomic,copy,readonly) CPPromiseErrorOn errorOn;
 @property (nonatomic,copy,readonly) CPPromiseFinallyOn finallyOn;
 
-
-
 @end
 
-#ifndef __cplusplus
-@interface CPPromise (Cacthing)
-@property (nonatomic,copy,readonly) CPPromiseError catch;
-@end
+#ifdef __cplusplus
+extern "C" {
 #endif
-
+    
 /*
  * this is mostly for tests and compatibility with PromiseKit
  */
@@ -114,5 +115,9 @@ extern id         CorePromiseHang(CPPromise* promise);
 
 extern CPPromise* CorePromiseDispatchOn(NSOperationQueue* queue, CPPromiseThenBlock block);
 extern CPPromise* CorePromiseDispatch(CPPromiseThenBlock block);
+
+#ifdef __cplusplus
+}
+#endif
 
 NS_ASSUME_NONNULL_END

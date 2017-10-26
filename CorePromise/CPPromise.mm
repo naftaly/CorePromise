@@ -30,6 +30,7 @@
 NSString* const CorePromiseErrorDomain = @"com.bedroomcode.corepromise.error.domain";
 NSString* const CorePromiseFailingIndexKey = @"CorePromiseFailingIndexKey";
 NSString* const CorePromiseJoinPromisesKey = @"CorePromiseJoinPromisesKey";
+NSString* const CorePromiseExceptionErrorKey = @"CorePromiseExceptionErrorKey";
 
 NSString* const CPPromiseNull = @"CPPromiseNull";
 
@@ -120,14 +121,19 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
             void (^handleResolvedWithValue)(id o) = ^(id o) {
                 
                 CPRunCodeOnQueue( queue, ^{
-                    
+
                     if ( [o isKindOfClass:[NSError class]] )
                     {
                         reject(o);
                     }
                     else
                     {
-                        id val = block(o);
+                        id val = nil;
+                        @try {
+                            val = block(o);
+                        } @catch( id exception ) {
+                            val = [NSError errorWithDomain:CorePromiseErrorDomain code:CorePromiseErrorException userInfo: @{ CorePromiseExceptionErrorKey: exception }];
+                        }
                         if ( [val isKindOfClass:[NSError class]] )
                             reject(val);
                         else
@@ -167,10 +173,15 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
             void (^handleResolvedWithValue)(id o) = ^(id o) {
                 
                 CPRunCodeOnQueue( queue, ^{
-                    
+
                     if ( [o isKindOfClass:[NSError class]] )
                     {
-                        id val = block(o);
+                        id val = nil;
+                        @try {
+                            val = block(o);
+                        } @catch( id exception ) {
+                            val = [NSError errorWithDomain:CorePromiseErrorDomain code:CorePromiseErrorException userInfo: @{ CorePromiseExceptionErrorKey: exception }];
+                        }
                         if ( [val isKindOfClass:[NSError class]] )
                             reject(val);
                         else
@@ -253,8 +264,16 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
         NSArray* handlers = self.handlers;
         self.handlers = nil;
         [self.lock unlock];
-        for (void (^handler)(id) in handlers)
-            handler(self.value);
+        
+        if ( self.isRejected && handlers.count == 0 ) {
+            NSLog( @"[CorePromise-WARNING] Unhandled rejection.", nil );
+#if DEBUG
+            [NSException raise:@"CorePromiseUnhandledRejection" format:@"<CPPromise:%p> A promise was rejected without being handled. Add a .error handler to avoid this at runtime", self];
+#endif
+        } else {
+            for (void (^handler)(id) in handlers)
+                handler(self.value);
+        }
     };
     
     result = result ? result : CPPromiseNull;
@@ -293,9 +312,11 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 + (instancetype)promiseWithResolverBlock:(CPPromiseResolverBlock)block
 {
     CPPromise* promise = [CPPromise new];
-    block( ^(id value) {
-        [promise _resolve:value];
-    });
+    [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+        block( ^(id value) {
+            [promise _resolve:value];
+        });
+    }];
     return promise;
 }
 
@@ -312,9 +333,21 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 
 + (instancetype)promiseWithValue:(id)value
 {
+    NSOperationQueue* queue = [NSOperationQueue currentQueue];
+    return [CPPromise promiseWithBlock:^(CPPromiseFulfiller  _Nonnull fulfill, CPPromiseRejecter  _Nonnull reject) {
+        [queue addOperationWithBlock:^{
+            if ( [value isKindOfClass:[NSError class]] )
+                reject(value);
+            else
+                fulfill(value);
+        }];
+    }];
+    
+    /*
     CPPromise* promise = [[self alloc] init];
     [promise _resolve:value];
     return promise;
+   */
 }
 
 + (instancetype)promise
@@ -549,12 +582,6 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 }
 
 @end
-
-#ifndef __cplusplus
-@implementation CPPromise (Cacthing)
-- (CPPromiseError)catch { return self.error; }
-@end
-#endif
 
 CPPromise* CorePromiseAfter(NSTimeInterval time)
 {

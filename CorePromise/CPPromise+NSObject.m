@@ -37,7 +37,7 @@
         [me setValue:value forKeyPath:keyPath];
         return nil;
     })
-    .catch(^id _Nullable(NSError* error) {
+    .error(^id _Nullable(NSError* error) {
         typeof(self)me = weakMe;
         [me setValue:nil forKeyPath:keyPath];
         return nil;

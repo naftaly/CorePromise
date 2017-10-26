@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA18860C1F9A701A009D0E1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA18860B1F9A701A009D0E1B /* main.m */; };
+		FA1886121F9A705E009D0E1B /* CorePromiseTools.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886111F9A705E009D0E1B /* CorePromiseTools.m */; };
+		FA1886141F9A7155009D0E1B /* CorePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA694B071CBC013A00217206 /* CorePromise.framework */; };
+		FA18861F1F9A7636009D0E1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA18861E1F9A7636009D0E1B /* AppDelegate.m */; };
+		FA1886221F9A7636009D0E1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886211F9A7636009D0E1B /* ViewController.m */; };
+		FA1886241F9A7636009D0E1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1886231F9A7636009D0E1B /* Assets.xcassets */; };
+		FA1886271F9A7636009D0E1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1886251F9A7636009D0E1B /* Main.storyboard */; };
+		FA18862A1F9A7636009D0E1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886291F9A7636009D0E1B /* main.m */; };
+		FA18862F1F9A7645009D0E1B /* CorePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA694B071CBC013A00217206 /* CorePromise.framework */; };
+		FA1886301F9A7645009D0E1B /* CorePromise.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA694B071CBC013A00217206 /* CorePromise.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA2682F61F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA2682F71F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA2682F81F19C4E8005F79A3 /* CPPromise+NSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,7 +35,7 @@
 		FA7A4C141C7BC6A3007A9ED4 /* CorePromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C131C7BC6A3007A9ED4 /* CorePromiseTests.m */; };
 		FA97DDFF1DBCFB54007A6802 /* AllTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97DDFE1DBCFB54007A6802 /* AllTests.m */; };
 		FAAFB8C81EDB710500EB550B /* CPPromise+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */; };
-		FAAFB8C91EDB710500EB550B /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
+		FAAFB8C91EDB710500EB550B /* CPPromise.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.mm */; };
 		FAAFB8CA1EDB710500EB550B /* CPPromise+UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A4C231C7BC6BC007A9ED4 /* CPPromise+UIKit.m */; };
 		FAAFB8CD1EDB710500EB550B /* CPPromise+Foundation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAAFB8CE1EDB710500EB550B /* CorePromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A4C071C7BC6A3007A9ED4 /* CorePromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,8 +43,8 @@
 		FAAFB8D01EDB710500EB550B /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4AB81DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAFE4AB91DB9457C005D1092 /* CPPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = FAFE4AB61DB9457C005D1092 /* CPPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAFE4ABA1DB9457C005D1092 /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
-		FAFE4ABB1DB9457C005D1092 /* CPPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.m */; };
+		FAFE4ABA1DB9457C005D1092 /* CPPromise.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.mm */; };
+		FAFE4ABB1DB9457C005D1092 /* CPPromise.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AB71DB9457C005D1092 /* CPPromise.mm */; };
 		FAFE4B071DBA5147005D1092 /* AnyPromiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4AFF1DBA5147005D1092 /* AnyPromiseTests.m */; };
 		FAFE4B0A1DBA5147005D1092 /* HangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4B021DBA5147005D1092 /* HangTests.m */; };
 		FAFE4B0B1DBA5147005D1092 /* JoinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFE4B031DBA5147005D1092 /* JoinTests.m */; };
@@ -42,6 +52,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FA1886151F9A715C009D0E1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA7A4BFB1C7BC6A3007A9ED4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA694B061CBC013A00217206;
+			remoteInfo = "CorePromise Mac";
+		};
+		FA1886311F9A7645009D0E1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA7A4BFB1C7BC6A3007A9ED4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA694B061CBC013A00217206;
+			remoteInfo = "CorePromise Mac";
+		};
 		FA7A4C101C7BC6A3007A9ED4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA7A4BFB1C7BC6A3007A9ED4 /* Project object */;
@@ -51,7 +75,44 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FA1886071F9A701A009D0E1B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		FA1886331F9A7646009D0E1B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA1886301F9A7645009D0E1B /* CorePromise.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		FA1886091F9A701A009D0E1B /* CorePromiseTestTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CorePromiseTestTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA18860B1F9A701A009D0E1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FA1886101F9A705E009D0E1B /* CorePromiseTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorePromiseTools.h; sourceTree = "<group>"; };
+		FA1886111F9A705E009D0E1B /* CorePromiseTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CorePromiseTools.m; sourceTree = "<group>"; };
+		FA18861B1F9A7636009D0E1B /* CorePromiseGUITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorePromiseGUITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA18861D1F9A7636009D0E1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FA18861E1F9A7636009D0E1B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FA1886201F9A7636009D0E1B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FA1886211F9A7636009D0E1B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FA1886231F9A7636009D0E1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA1886261F9A7636009D0E1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA1886281F9A7636009D0E1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA1886291F9A7636009D0E1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FA18862B1F9A7636009D0E1B /* CorePromiseGUITest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorePromiseGUITest.entitlements; sourceTree = "<group>"; };
 		FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPPromise+NSObject.h"; sourceTree = "<group>"; };
 		FA2682F51F19C4E8005F79A3 /* CPPromise+NSObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CPPromise+NSObject.m"; sourceTree = "<group>"; };
 		FA694B071CBC013A00217206 /* CorePromise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePromise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +131,7 @@
 		FA97DDFE1DBCFB54007A6802 /* AllTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllTests.m; sourceTree = "<group>"; };
 		FAAFB8D51EDB710500EB550B /* CorePromise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorePromise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFE4AB61DB9457C005D1092 /* CPPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPromise.h; sourceTree = "<group>"; };
-		FAFE4AB71DB9457C005D1092 /* CPPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPromise.m; sourceTree = "<group>"; };
+		FAFE4AB71DB9457C005D1092 /* CPPromise.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPromise.mm; sourceTree = "<group>"; };
 		FAFE4AFF1DBA5147005D1092 /* AnyPromiseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnyPromiseTests.m; sourceTree = "<group>"; };
 		FAFE4B021DBA5147005D1092 /* HangTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HangTests.m; sourceTree = "<group>"; };
 		FAFE4B031DBA5147005D1092 /* JoinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTests.m; sourceTree = "<group>"; };
@@ -78,6 +139,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA1886061F9A701A009D0E1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1886141F9A7155009D0E1B /* CorePromise.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1886181F9A7636009D0E1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA18862F1F9A7645009D0E1B /* CorePromise.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA694B031CBC013A00217206 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -110,6 +187,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA18860A1F9A701A009D0E1B /* CorePromiseTestTool */ = {
+			isa = PBXGroup;
+			children = (
+				FA18860B1F9A701A009D0E1B /* main.m */,
+				FA1886101F9A705E009D0E1B /* CorePromiseTools.h */,
+				FA1886111F9A705E009D0E1B /* CorePromiseTools.m */,
+			);
+			path = CorePromiseTestTool;
+			sourceTree = "<group>";
+		};
+		FA1886131F9A7155009D0E1B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA18861C1F9A7636009D0E1B /* CorePromiseGUITest */ = {
+			isa = PBXGroup;
+			children = (
+				FA18861D1F9A7636009D0E1B /* AppDelegate.h */,
+				FA18861E1F9A7636009D0E1B /* AppDelegate.m */,
+				FA1886201F9A7636009D0E1B /* ViewController.h */,
+				FA1886211F9A7636009D0E1B /* ViewController.m */,
+				FA1886231F9A7636009D0E1B /* Assets.xcassets */,
+				FA1886251F9A7636009D0E1B /* Main.storyboard */,
+				FA1886281F9A7636009D0E1B /* Info.plist */,
+				FA1886291F9A7636009D0E1B /* main.m */,
+				FA18862B1F9A7636009D0E1B /* CorePromiseGUITest.entitlements */,
+			);
+			path = CorePromiseGUITest;
+			sourceTree = "<group>";
+		};
 		FA694B081CBC013A00217206 /* CorePromise */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +235,10 @@
 				FA7A4C061C7BC6A3007A9ED4 /* CorePromise */,
 				FA7A4C121C7BC6A3007A9ED4 /* CorePromiseTests */,
 				FA694B081CBC013A00217206 /* CorePromise */,
+				FA18860A1F9A701A009D0E1B /* CorePromiseTestTool */,
+				FA18861C1F9A7636009D0E1B /* CorePromiseGUITest */,
 				FA7A4C051C7BC6A3007A9ED4 /* Products */,
+				FA1886131F9A7155009D0E1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +249,8 @@
 				FA7A4C0E1C7BC6A3007A9ED4 /* CorePromiseTests.xctest */,
 				FA694B071CBC013A00217206 /* CorePromise.framework */,
 				FAAFB8D51EDB710500EB550B /* CorePromise.framework */,
+				FA1886091F9A701A009D0E1B /* CorePromiseTestTool */,
+				FA18861B1F9A7636009D0E1B /* CorePromiseGUITest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,7 +260,7 @@
 			children = (
 				FA7A4C071C7BC6A3007A9ED4 /* CorePromise.h */,
 				FAFE4AB61DB9457C005D1092 /* CPPromise.h */,
-				FAFE4AB71DB9457C005D1092 /* CPPromise.m */,
+				FAFE4AB71DB9457C005D1092 /* CPPromise.mm */,
 				FA7A4C201C7BC6BC007A9ED4 /* CPPromise+Foundation.h */,
 				FA7A4C211C7BC6BC007A9ED4 /* CPPromise+Foundation.m */,
 				FA2682F41F19C4E8005F79A3 /* CPPromise+NSObject.h */,
@@ -212,6 +327,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FA1886081F9A701A009D0E1B /* CorePromiseTestTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA18860F1F9A701A009D0E1B /* Build configuration list for PBXNativeTarget "CorePromiseTestTool" */;
+			buildPhases = (
+				FA1886051F9A701A009D0E1B /* Sources */,
+				FA1886061F9A701A009D0E1B /* Frameworks */,
+				FA1886071F9A701A009D0E1B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1886161F9A715C009D0E1B /* PBXTargetDependency */,
+			);
+			name = CorePromiseTestTool;
+			productName = CorePromiseTestTool;
+			productReference = FA1886091F9A701A009D0E1B /* CorePromiseTestTool */;
+			productType = "com.apple.product-type.tool";
+		};
+		FA18861A1F9A7636009D0E1B /* CorePromiseGUITest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA18862C1F9A7636009D0E1B /* Build configuration list for PBXNativeTarget "CorePromiseGUITest" */;
+			buildPhases = (
+				FA1886171F9A7636009D0E1B /* Sources */,
+				FA1886181F9A7636009D0E1B /* Frameworks */,
+				FA1886191F9A7636009D0E1B /* Resources */,
+				FA1886331F9A7646009D0E1B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1886321F9A7645009D0E1B /* PBXTargetDependency */,
+			);
+			name = CorePromiseGUITest;
+			productName = CorePromiseGUITest;
+			productReference = FA18861B1F9A7636009D0E1B /* CorePromiseGUITest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		FA694B061CBC013A00217206 /* CorePromise Mac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA694B0C1CBC013A00217206 /* Build configuration list for PBXNativeTarget "CorePromise Mac" */;
@@ -293,8 +445,19 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "X-Rite, Inc.";
 				TargetAttributes = {
+					FA1886081F9A701A009D0E1B = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = 4NFXNUDA89;
+						ProvisioningStyle = Automatic;
+					};
+					FA18861A1F9A7636009D0E1B = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = 4NFXNUDA89;
+						ProvisioningStyle = Automatic;
+					};
 					FA694B061CBC013A00217206 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 4NFXNUDA89;
 						ProvisioningStyle = Manual;
 					};
 					FA7A4C031C7BC6A3007A9ED4 = {
@@ -314,6 +477,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = FA7A4BFA1C7BC6A3007A9ED4;
 			productRefGroup = FA7A4C051C7BC6A3007A9ED4 /* Products */;
@@ -324,11 +488,22 @@
 				FAAFB8C61EDB710500EB550B /* CorePromise ATV */,
 				FA694B061CBC013A00217206 /* CorePromise Mac */,
 				FA7A4C0D1C7BC6A3007A9ED4 /* CorePromiseTests */,
+				FA1886081F9A701A009D0E1B /* CorePromiseTestTool */,
+				FA18861A1F9A7636009D0E1B /* CorePromiseGUITest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FA1886191F9A7636009D0E1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1886241F9A7636009D0E1B /* Assets.xcassets in Resources */,
+				FA1886271F9A7636009D0E1B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA694B051CBC013A00217206 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,12 +535,31 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA1886051F9A701A009D0E1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1886121F9A705E009D0E1B /* CorePromiseTools.m in Sources */,
+				FA18860C1F9A701A009D0E1B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1886171F9A7636009D0E1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1886221F9A7636009D0E1B /* ViewController.m in Sources */,
+				FA18862A1F9A7636009D0E1B /* main.m in Sources */,
+				FA18861F1F9A7636009D0E1B /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA694B021CBC013A00217206 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FA2682FB1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
-				FAFE4ABB1DB9457C005D1092 /* CPPromise.m in Sources */,
+				FAFE4ABB1DB9457C005D1092 /* CPPromise.mm in Sources */,
 				FA777AAB1D11993E0073D904 /* CPPromise+Foundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA777AA91D11993D0073D904 /* CPPromise+Foundation.m in Sources */,
-				FAFE4ABA1DB9457C005D1092 /* CPPromise.m in Sources */,
+				FAFE4ABA1DB9457C005D1092 /* CPPromise.mm in Sources */,
 				FA2682F91F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
 				FA777AAD1D1199430073D904 /* CPPromise+UIKit.m in Sources */,
 			);
@@ -399,7 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAAFB8C81EDB710500EB550B /* CPPromise+Foundation.m in Sources */,
-				FAAFB8C91EDB710500EB550B /* CPPromise.m in Sources */,
+				FAAFB8C91EDB710500EB550B /* CPPromise.mm in Sources */,
 				FA2682FA1F19C4E8005F79A3 /* CPPromise+NSObject.m in Sources */,
 				FAAFB8CA1EDB710500EB550B /* CPPromise+UIKit.m in Sources */,
 			);
@@ -408,6 +602,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FA1886161F9A715C009D0E1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA694B061CBC013A00217206 /* CorePromise Mac */;
+			targetProxy = FA1886151F9A715C009D0E1B /* PBXContainerItemProxy */;
+		};
+		FA1886321F9A7645009D0E1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA694B061CBC013A00217206 /* CorePromise Mac */;
+			targetProxy = FA1886311F9A7645009D0E1B /* PBXContainerItemProxy */;
+		};
 		FA7A4C111C7BC6A3007A9ED4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FA7A4C031C7BC6A3007A9ED4 /* CorePromise iOS */;
@@ -415,16 +619,116 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		FA1886251F9A7636009D0E1B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA1886261F9A7636009D0E1B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		FA18860D1F9A701A009D0E1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FA18860E1F9A701A009D0E1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FA18862D1F9A7636009D0E1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = CorePromiseGUITest/CorePromiseGUITest.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CorePromiseGUITest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromiseGUITest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FA18862E1F9A7636009D0E1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = CorePromiseGUITest/CorePromiseGUITest.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CorePromiseGUITest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromiseGUITest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		FA694B0D1CBC013A00217206 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -446,11 +750,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4NFXNUDA89;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -699,6 +1004,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA18860F1F9A701A009D0E1B /* Build configuration list for PBXNativeTarget "CorePromiseTestTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA18860D1F9A701A009D0E1B /* Debug */,
+				FA18860E1F9A701A009D0E1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA18862C1F9A7636009D0E1B /* Build configuration list for PBXNativeTarget "CorePromiseGUITest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA18862D1F9A7636009D0E1B /* Debug */,
+				FA18862E1F9A7636009D0E1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FA694B0C1CBC013A00217206 /* Build configuration list for PBXNativeTarget "CorePromise Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

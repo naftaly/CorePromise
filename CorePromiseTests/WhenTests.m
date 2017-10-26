@@ -74,14 +74,14 @@
     NSProgress *progress = [NSProgress progressWithTotalUnitCount:1];
     [progress becomeCurrentWithPendingUnitCount:1];
 
-    CorePromiseWhen(promises).catch(^id(id nop){
+    CorePromiseWhen(promises).error(^id(id nop){
         [ex2 fulfill];
         return nil;
     });
 
     [progress resignCurrent];
 
-    CorePromiseJoin(promises).catch(^id(id nop){
+    CorePromiseJoin(promises).error(^id(id nop){
         XCTAssertLessThanOrEqual(1, progress.fractionCompleted);
         XCTAssertEqual(progress.completedUnitCount, 1);
         [ex1 fulfill];
@@ -141,7 +141,7 @@
     CorePromiseWhen(@[c]).then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTAssertEqualObjects(e.userInfo[CorePromiseFailingIndexKey], @0);
         XCTAssertEqualObjects(e.domain, domain);
         [ex1 fulfill];
@@ -161,7 +161,7 @@
     promise.then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         [ex1 fulfill];
         return nil;
     });
@@ -169,7 +169,7 @@
     CorePromiseWhen(@[promise]).then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError* error){
+    }).error(^id(NSError* error){
         [ex2 fulfill];
         return nil;
     });
@@ -179,7 +179,7 @@
 
 - (void)test_24_some_edge_case {
     id ex1 = [self expectationWithDescription:@""];
-    id a = CorePromiseAfter(0.02).catch(^id(id nop){return nil;});
+    id a = CorePromiseAfter(0.02).error(^id(id nop){return nil;});
     id b = CorePromiseAfter(0.03);
     CorePromiseWhen(@[a, b]).then(^id(NSArray *objs){
         [ex1 fulfill];
@@ -197,7 +197,7 @@
         XCTAssertEqualObjects(results[1], [NSNull null]);
         [ex1 fulfill];
         return nil;
-    }).catch(^id(NSError *err){
+    }).error(^id(NSError *err){
         abort();
         return nil;
     });

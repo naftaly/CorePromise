@@ -84,11 +84,11 @@
     CorePromiseAll(@[c]).then(^id(id nop){
         [ex1 fulfill];
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTFail();
         return nil;
     });
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)test_22_already_resolved_and_bubble {
@@ -102,7 +102,7 @@
     promise.then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         [ex1 fulfill];
         return nil;
     });
@@ -110,7 +110,7 @@
     CorePromiseAll(@[promise]).then(^id(id nop){
         [ex2 fulfill];
         return nil;
-    }).catch(^id(NSError* error){
+    }).error(^id(NSError* error){
         XCTFail();
         return nil;
     });
@@ -120,7 +120,7 @@
 
 - (void)test_24_some_edge_case {
     id ex1 = [self expectationWithDescription:@""];
-    id a = CorePromiseAfter(0.02).catch(^id(id nop){return nil;});
+    id a = CorePromiseAfter(0.02).error(^id(id nop){return nil;});
     id b = CorePromiseAfter(0.03);
     CorePromiseAll(@[a, b]).then(^id(NSArray *objs){
         [ex1 fulfill];
@@ -138,7 +138,7 @@
         XCTAssertEqualObjects(results[1], [NSNull null]);
         [ex1 fulfill];
         return nil;
-    }).catch(^id(NSError *err){
+    }).error(^id(NSError *err){
         abort();
         return nil;
     });

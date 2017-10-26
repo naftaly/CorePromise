@@ -68,7 +68,7 @@ static inline CPPromise *fulfillLater() {
         XCTAssertEqual(o.intValue, 1);
         return nil;
     });
-    promise.catch(^id(NSError* err){
+    promise.error(^id(NSError* err){
         XCTFail();
         return nil;
     });
@@ -86,7 +86,7 @@ static inline CPPromise *fulfillLater() {
         XCTFail();
         return nil;
     });
-    promise.catch(^id(NSError *error){
+    promise.error(^id(NSError *error){
         XCTAssertEqualObjects(error.localizedDescription, @"2");
         [ex1 fulfill];
         return nil;
@@ -103,12 +103,12 @@ static inline CPPromise *fulfillLater() {
     }];
     promise.then(^id(id nop){
         return [NSError errorWithDomain:@"a" code:3 userInfo:nil];
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         [ex1 fulfill];
         XCTAssertEqual(3, e.code);
         return nil;
     });
-    promise.catch(^id(NSError* error){
+    promise.error(^id(NSError* error){
         XCTFail();
         return nil;
     });
@@ -128,7 +128,7 @@ static inline CPPromise *fulfillLater() {
         XCTFail();
         return nil;
     });
-    promise.catch(^id(id nop){
+    promise.error(^id(id nop){
         [ex1 fulfill];
         return nil;
     });
@@ -144,7 +144,7 @@ static inline CPPromise *fulfillLater() {
     }].then(^(id ii){
         XCTAssertEqual(5, [ii intValue]);
         return [NSError errorWithDomain:@"a" code:[ii intValue] userInfo:nil];
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTAssertEqual(e.code, 5);
         [ex1 fulfill];
         return nil;
@@ -163,7 +163,7 @@ static inline CPPromise *fulfillLater() {
     }).then(^id(id nop){
         //NOOP
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         [ex1 fulfill];
         XCTAssertEqualObjects(e.domain, CorePromiseErrorDomain);
         return nil;
@@ -179,7 +179,7 @@ static inline CPPromise *fulfillLater() {
         resolve(@5);
     }].then(^id(id nop){
         return dummy();
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         [ex1 fulfill];
         return nil;
     });
@@ -206,7 +206,7 @@ static inline CPPromise *fulfillLater() {
     
     [CPPromise promiseWithResolverBlock:^(CPPromiseResolver resolve) {
         resolve(dummyWithCode(1));
-    }].catch(^id(NSError *e){
+    }].error(^id(NSError *e){
         [ex1 fulfill];
         XCTAssertEqualObjects(@"1", e.localizedDescription);
         return nil;
@@ -322,7 +322,7 @@ static inline CPPromise *fulfillLater() {
      }).then(^id(id nop){
          XCTFail();
          return nil;
-     }).catch(^id(NSError *e){
+     }).error(^id(NSError *e){
          XCTAssertEqualObjects(e.domain, CorePromiseErrorDomain);
          [ex1 fulfill];
          return nil;
@@ -338,7 +338,7 @@ static inline CPPromise *fulfillLater() {
         resolve(@1);
     }].then(^id(id nop){
         return [NSError errorWithDomain:@"a" code:1 userInfo:nil];
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTAssertEqual(e.code, 1);
         return @2;
     }).then(^id(id o){
@@ -357,7 +357,7 @@ static inline CPPromise *fulfillLater() {
         resolve(@1);
     }].then(^id(id nop){
         return dummy();
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         return fulfillLater().then(^id(id nop){
             return @123;
         });
@@ -381,7 +381,7 @@ static inline CPPromise *fulfillLater() {
     promise.then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTAssertEqualObjects(e.localizedDescription, @"23");
         [ex1 fulfill];
         return nil;
@@ -390,7 +390,7 @@ static inline CPPromise *fulfillLater() {
     promise.then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(NSError *e){
+    }).error(^id(NSError *e){
         XCTAssertEqualObjects(e.localizedDescription, @"23");
         [ex2 fulfill];
         return nil;
@@ -416,7 +416,7 @@ static inline CPPromise *fulfillLater() {
         XCTAssertNil(o);
         [ex3 fulfill];
         return nil;
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         XCTFail();
         return nil;
     });
@@ -430,7 +430,7 @@ static inline CPPromise *fulfillLater() {
     fulfillLater().then(^id(id nop){
         return fulfillLater().then(^id(id nop){
             return dummy();
-        }).catch(^id(id nop){
+        }).error(^id(id nop){
             return fulfillLater().then(^id(id nop){
                 return dummy();
             });
@@ -438,7 +438,7 @@ static inline CPPromise *fulfillLater() {
     }).then(^id(id nop){
         XCTFail();
         return nil;
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         [ex1 fulfill];
         return nil;
     });
@@ -450,7 +450,7 @@ static inline CPPromise *fulfillLater() {
     
     fulfillLater().then(^id(id nop){
         return dummy();
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         return @YES;
     }).then(^id(id nop){
         [ex1 fulfill];
@@ -464,13 +464,13 @@ static inline CPPromise *fulfillLater() {
     id ex1 = [self expectationWithDescription:@""];
     id ex2 = [self expectationWithDescription:@""];
 
-    rejectLater().catch(^id(id nop){
+    rejectLater().error(^id(id nop){
         [ex1 fulfill];
         return fulfillLater();
     }).then(^id(id o){
         [ex2 fulfill];
         return nil;
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         XCTFail();
         return nil;
     });
@@ -482,7 +482,7 @@ static inline CPPromise *fulfillLater() {
     id ex1 = [self expectationWithDescription:@""];
     id ex2 = [self expectationWithDescription:@""];
     
-    rejectLater().catch(^id(id nop){
+    rejectLater().error(^id(id nop){
         [ex1 fulfill];
         return fulfillLater().then(^id(id nop){
             return dummy();
@@ -490,10 +490,10 @@ static inline CPPromise *fulfillLater() {
     }).then(^id(id nop){
         XCTFail(@"1");
         return nil;
-    }).catch(^id(NSError *error){
+    }).error(^id(NSError *error){
         [ex2 fulfill];
         return nil;
-    }).catch(^id(id nop){
+    }).error(^id(id nop){
         XCTFail(@"2");
         return nil;
     });
@@ -673,7 +673,7 @@ static inline CPPromise *fulfillLater() {
     [CPPromise promiseWithValue:@1].then(^id(id o){
         XCTAssertEqual(++x, 1);
         return dummy();
-    }).catch(^id(id o){
+    }).error(^id(id o){
         XCTAssertEqual(++x, 2);
         return nil;
     }).then(^id(id o){
@@ -729,7 +729,7 @@ static inline CPPromise *fulfillLater() {
         return [CPPromise promiseWithResolverBlock:^(CPPromiseResolver resolve) {
             resolve([CPPromise promiseWithValue:dummy()]);
         }];
-    }).catch(^id(NSError *err){
+    }).error(^id(NSError *err){
         [ex1 fulfill];
         return nil;
     });
@@ -742,7 +742,7 @@ static inline CPPromise *fulfillLater() {
         return @1;
     }).then(^id(id o){
         return [CPPromise promiseWithValue:dummy()];
-    }).catch(^id(id o){
+    }).error(^id(id o){
         [ex1 fulfill];
         return nil;
     });
@@ -755,7 +755,7 @@ static inline CPPromise *fulfillLater() {
     [CPPromise promiseWithResolverBlock:^(CPPromiseResolver resolve) {
         id err = [NSError errorWithDomain:@"a" code:123 userInfo:nil];
         resolve([CPPromise promiseWithValue:err]);
-    }].catch(^id(NSError *err){
+    }].error(^id(NSError *err){
         XCTAssertEqual(err.code, 123);
         [ex1 fulfill];
         return nil;
@@ -789,7 +789,7 @@ static inline CPPromise *fulfillLater() {
 //- (void)test_nil_block {
 //    [CPPromise promiseWithValue:@1].then(nil);
 //    [CPPromise promiseWithValue:@1].thenOn(nil, nil);
-//    [CPPromise promiseWithValue:@1].catch(nil);
+//    [CPPromise promiseWithValue:@1].error(nil);
 //    [CPPromise promiseWithValue:@1].finally(nil);
 //    [CPPromise promiseWithValue:@1].finallyOn(nil, nil);
 //}
