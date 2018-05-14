@@ -173,7 +173,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
             void (^handleResolvedWithValue)(id o) = ^(id o) {
                 
                 CPRunCodeOnQueue( queue, ^{
-
+                    
                     if ( [o isKindOfClass:[NSError class]] )
                     {
                         id val = nil;
@@ -267,7 +267,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
         
         if ( self.isRejected && handlers.count == 0 ) {
             NSLog( @"[CorePromise-WARNING] Unhandled rejection.", nil );
-#if DEBUG
+#if 0 && DEBUG
             [NSException raise:@"CorePromiseUnhandledRejection" format:@"<CPPromise:%p> A promise was rejected without being handled. Add a .error handler to avoid this at runtime", self];
 #endif
         } else {
@@ -312,11 +312,14 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 + (instancetype)promiseWithResolverBlock:(CPPromiseResolverBlock)block
 {
     CPPromise* promise = [CPPromise new];
-    [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+    if ( block )
+    {
         block( ^(id value) {
-            [promise _resolve:value];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [promise _resolve:value];
+            }];
         });
-    }];
+    }
     return promise;
 }
 
@@ -333,6 +336,13 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
 
 + (instancetype)promiseWithValue:(id)value
 {
+    CPPromise* promise = [CPPromise new];
+	[[NSOperationQueue currentQueue] addOperationWithBlock:^{
+        [promise _resolve:value];
+    }];
+    return promise;
+    
+    /*
     NSOperationQueue* queue = [NSOperationQueue currentQueue];
     return [CPPromise promiseWithBlock:^(CPPromiseFulfiller  _Nonnull fulfill, CPPromiseRejecter  _Nonnull reject) {
         [queue addOperationWithBlock:^{
@@ -342,6 +352,7 @@ static void CPRunCodeOnQueue( NSOperationQueue* queue, dispatch_block_t block )
                 fulfill(value);
         }];
     }];
+    */
     
     /*
     CPPromise* promise = [[self alloc] init];
