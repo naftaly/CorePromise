@@ -11,7 +11,7 @@
 		FA1886121F9A705E009D0E1B /* CorePromiseTools.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886111F9A705E009D0E1B /* CorePromiseTools.m */; };
 		FA1886141F9A7155009D0E1B /* CorePromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA694B071CBC013A00217206 /* CorePromise.framework */; };
 		FA18861F1F9A7636009D0E1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA18861E1F9A7636009D0E1B /* AppDelegate.m */; };
-		FA1886221F9A7636009D0E1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886211F9A7636009D0E1B /* ViewController.m */; };
+		FA1886221F9A7636009D0E1B /* MercuryItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886211F9A7636009D0E1B /* MercuryItemViewController.m */; };
 		FA1886241F9A7636009D0E1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1886231F9A7636009D0E1B /* Assets.xcassets */; };
 		FA1886271F9A7636009D0E1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1886251F9A7636009D0E1B /* Main.storyboard */; };
 		FA18862A1F9A7636009D0E1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1886291F9A7636009D0E1B /* main.m */; };
@@ -106,8 +106,8 @@
 		FA18861B1F9A7636009D0E1B /* CorePromiseGUITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorePromiseGUITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA18861D1F9A7636009D0E1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA18861E1F9A7636009D0E1B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FA1886201F9A7636009D0E1B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FA1886211F9A7636009D0E1B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FA1886201F9A7636009D0E1B /* MercuryItemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MercuryItemViewController.h; sourceTree = "<group>"; };
+		FA1886211F9A7636009D0E1B /* MercuryItemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MercuryItemViewController.m; sourceTree = "<group>"; };
 		FA1886231F9A7636009D0E1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA1886261F9A7636009D0E1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA1886281F9A7636009D0E1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 			children = (
 				FA18861D1F9A7636009D0E1B /* AppDelegate.h */,
 				FA18861E1F9A7636009D0E1B /* AppDelegate.m */,
-				FA1886201F9A7636009D0E1B /* ViewController.h */,
-				FA1886211F9A7636009D0E1B /* ViewController.m */,
+				FA1886201F9A7636009D0E1B /* MercuryItemViewController.h */,
+				FA1886211F9A7636009D0E1B /* MercuryItemViewController.m */,
 				FA1886231F9A7636009D0E1B /* Assets.xcassets */,
 				FA1886251F9A7636009D0E1B /* Main.storyboard */,
 				FA1886281F9A7636009D0E1B /* Info.plist */,
@@ -442,7 +442,7 @@
 		FA7A4BFB1C7BC6A3007A9ED4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "X-Rite, Inc.";
 				TargetAttributes = {
 					FA1886081F9A701A009D0E1B = {
@@ -473,7 +473,7 @@
 			};
 			buildConfigurationList = FA7A4BFE1C7BC6A3007A9ED4 /* Build configuration list for PBXProject "CorePromise" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -548,7 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA1886221F9A7636009D0E1B /* ViewController.m in Sources */,
+				FA1886221F9A7636009D0E1B /* MercuryItemViewController.m in Sources */,
 				FA18862A1F9A7636009D0E1B /* main.m in Sources */,
 				FA18861F1F9A7636009D0E1B /* AppDelegate.m in Sources */,
 			);
@@ -643,6 +643,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -662,6 +663,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -684,6 +686,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = CorePromiseGUITest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -709,6 +712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4NFXNUDA89;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = CorePromiseGUITest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -736,7 +740,7 @@
 				INFOPLIST_FILE = CorePromise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
 				PRODUCT_NAME = CorePromise;
@@ -763,7 +767,7 @@
 				INFOPLIST_FILE = CorePromise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
 				PRODUCT_NAME = CorePromise;
@@ -777,6 +781,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -795,6 +800,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -821,7 +827,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -835,6 +841,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -853,6 +860,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -873,7 +881,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -897,6 +905,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = CorePromise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
@@ -920,6 +929,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = CorePromise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bedroomcode.CorePromise;
@@ -979,6 +989,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.2;
 			};
 			name = Debug;
 		};
@@ -1004,6 +1016,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.2;
 			};
 			name = Release;
 		};

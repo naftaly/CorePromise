@@ -6,9 +6,9 @@
 //  Copyright © 2017 X-Rite, Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MercuryItemViewController.h"
 
-@implementation ViewController
+@implementation MercuryItemViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
